@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>school.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -56,6 +59,9 @@
     <Compile Include="View\CategorySchoolClass\CategorySchoolClassListView.xaml.cs">
       <DependentUpon>CategorySchoolClassListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Teacher\TeacherListView.xaml.cs">
+      <DependentUpon>TeacherListView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +79,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CategorySchoolClass\CategorySchoolClassListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Teacher\TeacherListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataBase\" />
-    <Folder Include="View\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Arphif.png" />
@@ -118,6 +127,9 @@
     <Resource Include="Icons\school.ico" />
     <Resource Include="Icons\search.png" />
     <Resource Include="Icons\Student.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="school.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

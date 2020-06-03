@@ -9,7 +9,7 @@
         Width="800"
         Height="600"
         Icon="Icons/school.ico"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

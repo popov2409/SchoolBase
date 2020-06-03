@@ -15,7 +15,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Имя
@@ -29,7 +29,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// ФИО
         /// </summary>
-        public string FullName => $"{SecondName} {FirstName} {MiddleName}";
+        public string FullName => $"{LastName} {FirstName} {MiddleName}";
 
         /// <summary>
         /// Класс в котором учится
@@ -124,12 +124,12 @@ namespace SchoolBase.Model
 
     public class Teacher
     {
-        private Guid Id;
+        public Guid Id;
 
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Имя
@@ -142,6 +142,6 @@ namespace SchoolBase.Model
         /// <summary>
         /// ФИО
         /// </summary>
-        public string FullName => $"{SecondName} {FirstName} {MiddleName}";
+        public string FullName => $"{LastName} {FirstName} {MiddleName}";
     }
 }

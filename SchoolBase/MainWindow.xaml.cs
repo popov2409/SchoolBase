@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SchoolBase.Model;
+using SchoolBase.View.CategorySchoolClass;
+using SchoolBase.View.Teacher;
 
 namespace SchoolBase
 {
@@ -24,6 +26,12 @@ namespace SchoolBase
         {
             InitializeComponent();
             DbProxy.LoadData();
+            new TeacherListView().ShowDialog();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            DbProxy.SaveData();
         }
     }
 }

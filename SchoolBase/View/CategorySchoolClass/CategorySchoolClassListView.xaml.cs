@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SchoolBase.Model;
 
 namespace SchoolBase.View.CategorySchoolClass
 {
@@ -18,9 +19,27 @@ namespace SchoolBase.View.CategorySchoolClass
     /// </summary>
     public partial class CategorySchoolClassListView : Window
     {
+        private Model.CategorySchoolClass selectedCategory;
         public CategorySchoolClassListView()
         {
             InitializeComponent();
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+        }
+
+        private void MainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedCategory=MainListBox.SelectedItem as Model.CategorySchoolClass;
+        }
+
+        private void AddCategoryButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (CategoryNameTextBlock.Text.Replace(" ","").Length==0) return;
+            DbProxy.SchoolDb.CategorySchoolClasses.Add(new Model.CategorySchoolClass(){Id = Guid.NewGuid(),Value = CategoryNameTextBlock.Text});
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            
+            CategoryNameTextBlock.Text = "";
         }
     }
 }
