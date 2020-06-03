@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SchoolBase.Model
 {
-    class GroupClass
+    public class GroupClass
     {
         public int Id { get; set; }
 
@@ -72,7 +72,7 @@ namespace SchoolBase.Model
         /// </summary>
         public List<Student> Students
         {
-            get { return Proxy.StudentList.Where(st => st.Group == this).ToList(); }
+            //get { return Proxy.StudentList.Where(st => st.Group == this).ToList(); }
         }
     }
 }
