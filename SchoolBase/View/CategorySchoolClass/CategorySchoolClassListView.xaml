@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.CategorySchoolClass"
         mc:Ignorable="d"
-        Title="  Категории классов" Height="350" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="  Категории классов" Height="350" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" PreviewKeyDown="CategorySchoolClassListView_OnPreviewKeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>

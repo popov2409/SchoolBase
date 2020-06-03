@@ -1,0 +1,324 @@
+﻿<Window x:Class="SchoolBase.View.Student.AddStudentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolBase.View.Student"
+        mc:Ignorable="d"
+       Title=""
+        Width="800"
+        Height="510"
+        Icon="/Icons/Student.png"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="ФИО ученика" />
+                <TextBox Name="FullNameTextBox"
+                         MinWidth="250"
+                         Margin="5,0,0,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Дата рождения" />
+                <DatePicker Name="Birthdate"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Пол" />
+                <ComboBox Name="SexComboBox"
+                          MinWidth="40"
+                          Margin="5,0,0,0"
+                          VerticalAlignment="Center"
+                          FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Name="IsArhiveButton" Content="  Убрать из архива  " Margin="0,0,10,0" Visibility="Collapsed" FontSize="14" FontWeight="Bold" />
+                <CheckBox Name="InvalidityCheckBox"
+                          Content="Инвалидность"
+                          FlowDirection="RightToLeft"
+                          FontSize="16"
+                          FontWeight="Bold"
+                          SnapsToDevicePixels="True" />
+                <CheckBox Name="InclusiveCheckBox"
+                          Margin="10,0,0,0"
+                          Content="ВШУ"
+                          FlowDirection="RightToLeft"
+                          FontSize="16"
+                          FontWeight="Bold"
+                          SnapsToDevicePixels="True" />
+                <CheckBox Name="HomeSchoolingCheckBox"
+                          Margin="10,0,0,0"
+                          Content="Надомное обучение"
+                          FlowDirection="RightToLeft"
+                          FontSize="16"
+                          FontWeight="Bold"
+                          SnapsToDevicePixels="True" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Класс" />
+                <ComboBox Name="GroupComboBox"
+                          MinWidth="50"
+                          Margin="5,0,0,0"
+                          VerticalAlignment="Center"
+                          FontSize="14">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=FullValue}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="№ личного дела" />
+                <TextBox Name="PersonalFileNumberTextBox"
+                         MinWidth="100"
+                         Margin="5,0,0,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Дата поступления в школу" />
+                <DatePicker Name="AvailableDate"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <CheckBox Name="ConditionallyCheckBox"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center"
+                          Content="Переведен условно"
+                          FlowDirection="RightToLeft"
+                          FontSize="16"
+                          FontWeight="Bold"
+                          SnapsToDevicePixels="True" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Категория класса" />
+                <!--  <ComboBox Name="CategoryGroupComboBox" VerticalContentAlignment="Center" Margin="5,0,0,0" MinWidth="100" FontSize="14" IsEditable="True" IsReadOnly="True"/>  -->
+                <TextBlock Name="CategoryGroupTextBlock"
+                           MinWidth="100"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Статус класса" />
+                <!--  <ComboBox Name="StatusGroupComboBox" VerticalContentAlignment="Center" Margin="5,0,0,0" MinWidth="100" FontSize="14" IsEditable="True" IsReadOnly="True"/>  -->
+                <TextBlock Name="StatusGroupTextBlock"
+                           MinWidth="100"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Группа" />
+                <ComboBox Name="GroupSchoolComboBox"
+                          MinWidth="100"
+                          Margin="5,0,0,0"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          IsEditable="True" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Классный руководитель:" />
+                <TextBlock Name="TeacherTextBlock"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Основной  иностранный язык" />
+                <ComboBox Name="FirstLanguageComboBox"
+                          MinWidth="100"
+                          Margin="5,0,0,0"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          IsEditable="True" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Второй  иностранный язык" />
+                <ComboBox Name="SecondLanguageComboBox"
+                          MinWidth="100"
+                          Margin="5,0,0,0"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          IsEditable="True" />
+            </StackPanel>
+            
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Откуда прибыл: Школа №" />
+                <TextBox Name="FromSchoolNumberTextBox"
+                         MinWidth="50"
+                         Margin="5,0,0,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Город" />
+                <ComboBox Name="FromSityComboBox"
+                          MinWidth="120"
+                          Margin="5,0,0,0"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          IsEditable="True" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Область" />
+                <ComboBox Name="FromRegionComboBox"
+                          MinWidth="120"
+                          Margin="5,0,0,0"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          IsEditable="True" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Папа" />
+                <TextBox Name="FatherTextBox"
+                         MinWidth="300"
+                         Margin="5,0,0,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Телефон" />
+                <TextBox Name="FathePhoneTextBox"
+                         MinWidth="200"
+                         Margin="5,0,0,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Дата зачисления" />
+                <DatePicker Name="EnrollmentDecreeDate"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+                <TextBlock VerticalAlignment="Center"
+                           Margin="30,0,0,0"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Дата отчисления"/>
+                <DatePicker Name="DismissalDecreeDate"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Дата убытия из школы" />
+                <DatePicker Name="DismissalDate"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+            </StackPanel>
+            <TextBlock Margin="5,5,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Text="Примечание" />
+            <TextBox Name="OtherTextBox"
+                     Height="90"
+                     Margin="5,5,0,0"
+                     VerticalContentAlignment="Top"
+                     AcceptsReturn="True"
+                     FontSize="14"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Name="SaveButton"
+                        Grid.Column="0"
+                        Height="30"
+                        Content="Сохранить"
+                        FontSize="16" />
+                <Button Name="CancelButton"
+                        Grid.Column="1"
+                        Height="30"
+                        Content="Отменить"
+                        FontSize="16" />
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -28,7 +28,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Категория класса
         /// </summary>
-        public CategorySchoolClass Category { get; set; }
+        public Guid Category { get; set; }
 
         /// <summary>
         /// Статуc класса

@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SchoolBase.Model;
 using SchoolBase.View.CategorySchoolClass;
+using SchoolBase.View.Student;
 using SchoolBase.View.Teacher;
 
 namespace SchoolBase
@@ -26,7 +27,27 @@ namespace SchoolBase
         {
             InitializeComponent();
             DbProxy.LoadData();
-            new TeacherListView().ShowDialog();
+            InitializeTreeView();
+            //new AddStudentView().ShowDialog();
+        }
+
+        void InitializeTreeView()
+        {
+            MainTreeView.Items.Clear();
+            foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses)
+            {
+                TreeViewItem item=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value};
+                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).ToList())
+                {
+                    TreeViewItem inItem=new TreeViewItem(){Header = schoolClass.FullValue};
+                    inItem.PreviewMouseDoubleClick += InItem_PreviewMouseDoubleClick;
+                }
+            }
+        }
+
+        private void InItem_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Window_Closed(object sender, EventArgs e)

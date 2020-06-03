@@ -22,22 +22,28 @@ namespace SchoolBase.View.Teacher
         public TeacherListView()
         {
             InitializeComponent();
-            MainGrid.ItemsSource = null;
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Teachers;
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (FirstNameTextBox.Text.Replace(" ", "").Length == 0 ||
-                LastNameTextBox.Text.Replace(" ", "").Length == 0 ||
-                MiddleNameTextBox.Text.Replace(" ", "").Length == 0) return;
+            if (FullNameTextBlock.Text.Replace(" ", "").Length == 0) return;
             DbProxy.SchoolDb.Teachers.Add(new Model.Teacher()
             {
-                Id = Guid.NewGuid(), LastName = LastNameTextBox.Text, FirstName = FirstNameTextBox.Text,
-                MiddleName = MiddleNameTextBox.Text
+                Id = Guid.NewGuid(), FullName = FullNameTextBlock.Text
             });
-            MainGrid.ItemsSource = null;
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Teachers;
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
+
+        }
+
+        private void FullNameTextName_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Delete) return;
+            DbProxy.SchoolDb.Teachers.Remove(MainListBox.SelectedItem as Model.Teacher);
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
 
         }
     }

@@ -41,5 +41,13 @@ namespace SchoolBase.View.CategorySchoolClass
             
             CategoryNameTextBlock.Text = "";
         }
+
+        private void CategorySchoolClassListView_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Delete) return;
+            DbProxy.SchoolDb.CategorySchoolClasses.Remove(MainListBox.SelectedItem as Model.CategorySchoolClass);
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+        }
     }
 }

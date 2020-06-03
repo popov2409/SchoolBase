@@ -5,43 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.Teacher"
         mc:Ignorable="d"
-        Title="  Список учителей" Height="350" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="  Список учителей" Height="350" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" PreviewKeyDown="FullNameTextName_OnPreviewKeyDown">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Фамилия" HorizontalAlignment="Center" Grid.Column="0"/>
-            <TextBlock Text="Имя" HorizontalAlignment="Center" Grid.Column="1"/>
-            <TextBlock Text="Отчество" HorizontalAlignment="Center" Grid.Column="2"/>
-            <TextBox Name="LastNameTextBox" Margin="2" FontSize="14" Grid.Row="1" Grid.Column="0" />
-            <TextBox Name="FirstNameTextBox" Margin="2" FontSize="14" Grid.Row="1" Grid.Column="1"/>
-            <TextBox Name="MiddleNameTextBox" Margin="2" FontSize="14" Grid.Row="1" Grid.Column="2" />
-            <Button Name="AddButton" Grid.Column="4" FontSize="14" Margin="2" Content="+" Click="AddButton_OnClick" Grid.RowSpan="2"/>
+            <TextBox Name="FullNameTextBlock" Margin="2" FontSize="14" />
+            <Button Name="AddButton" Grid.Column="1" FontSize="14" Margin="2" Content="+" Click="AddButton_OnClick"/>
         </Grid>
-        <DataGrid Grid.Row="1" FontSize="14" Name="MainGrid" AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  CanUserReorderColumns="False" IsReadOnly="True" HorizontalAlignment="Stretch">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header=" Фамилия " Binding="{Binding Path=LastName}" Width="140"/>
-                <DataGridTextColumn Header=" Имя " Binding="{Binding Path=FirstName}" Width="140"/>
-                <DataGridTextColumn Header=" Отчество " Binding="{Binding Path=MiddleName}" Width="145"/>
-
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox Name="MainListBox" Grid.Row="1" FontSize="14">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=FullName}" Name="FullNameTextName" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
 
     </Grid>

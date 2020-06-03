@@ -33,9 +33,9 @@
             <TreeView Name="MainTreeView"
                       Grid.Column="0"
                       FontSize="16">
-                <TreeViewItem Name="ElementarySchoolTreeView" Header="Начальная школа" />
+                <!--<TreeViewItem Name="ElementarySchoolTreeView" Header="Начальная школа" />
                 <TreeViewItem Name="MiddleSchoolTreeView" Header="Средняя школа"  />
-                <TreeViewItem Name="HightSchoolTreeView" Header="Старшая школа" />
+                <TreeViewItem Name="HightSchoolTreeView" Header="Старшая школа" />-->
             </TreeView>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
