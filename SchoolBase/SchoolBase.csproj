@@ -72,7 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DbProxy.cs" />
-    <Compile Include="Model\GroupClass.cs" />
+    <Compile Include="Model\SchoolClass.cs" />
+    <Compile Include="Model\SchoolDb.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

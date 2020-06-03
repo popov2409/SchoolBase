@@ -2322,9 +2322,9 @@
                         <Grid>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+                                <ColumnDefinition MinWidth="17" Width="Auto" SharedSizeGroup="MenuItemIconColumnSchool" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup" />
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnSchool" />
                                 <ColumnDefinition Width="14" />
                             </Grid.ColumnDefinitions>
 

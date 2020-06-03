@@ -5,9 +5,12 @@ using System.Text;
 
 namespace SchoolBase.Model
 {
-    public class GroupClass
+    /// <summary>
+    /// Класс
+    /// </summary>
+    public class SchoolClass
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Номер класса
@@ -17,19 +20,18 @@ namespace SchoolBase.Model
         /// <summary>
         /// Буква
         /// </summary>
-        public string Character
-        { get; set; }
+        public string Character { get; set; }
 
         /// <summary>
         /// Категория класса
         /// </summary>
-        public string Category { get; set; }
+        public CategorySchoolClass Category { get; set; }
 
 
         /// <summary>
-        /// Статуc
+        /// Статуc класса
         /// </summary>
-        public string Status { get; set; }
+        public StatusSchoolClass Status { get; set; }
 
 
         /// <summary>
@@ -62,19 +64,33 @@ namespace SchoolBase.Model
         /// </summary>
         public string Teacher { get; set; }
 
-        /// <summary>
-        /// Смена, в которую учится класс
-        /// </summary>
-        public int Smena { get; set; }
+        
 
         /// <summary>
-        /// Школьники класса
+        /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников
         /// </summary>
         public List<Student> Students
         {
             get;
             set;
-            //get { return Proxy.StudentList.Where(st => st.Group == this).ToList(); }
         }
+    }
+
+    /// <summary>
+    /// Категория класса(начальная школа/средняя школа/старшая школа)
+    /// </summary>
+    public class CategorySchoolClass
+    {
+        public Guid Id { get; set; }
+        public string Value { get; set; }
+    }
+
+    /// <summary>
+    /// Статус класса(ОВЗ/общая и тд)
+    /// </summary>
+    public class StatusSchoolClass
+    {
+        public Guid Id { get; set; }
+        public string Value { get; set; }
     }
 }

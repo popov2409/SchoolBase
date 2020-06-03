@@ -5,132 +5,148 @@ using System.Text;
 
 namespace SchoolBase.Model
 {
-   public class Student 
-   { 
-     public int Id { get; set; }
-
     /// <summary>
-    /// ФИО целиком
+    /// Ученик
     /// </summary>
-    public string FullName { get; set; }
+    public class Student
+    {
+        public Guid Id { get; set; }
 
-    /// <summary>
-    /// Класс в котором учится
-    /// </summary>
-    public GroupClass Group { get; set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string SecondName { get; set; }
 
-    /// <summary>
-    /// Дата рождения
-    /// </summary>
-    public string Birthdate { get; set; }
+        /// <summary>
+        /// Имя
+        /// </summary>
+        public string FirstName { get; set; }
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public string MiddleName { get; set; }
 
-    /// <summary>
-    /// Пол
-    /// </summary>
-    public string Sex { get; set; }
+        /// <summary>
+        /// ФИО
+        /// </summary>
+        public string FullName => $"{SecondName} {FirstName} {MiddleName}";
 
-    /// <summary>
-    /// Номер личного дела
-    /// </summary>
-    public string PersonalFileNumber { get; set; }
+        /// <summary>
+        /// Класс в котором учится
+        /// </summary>
+        public SchoolClass School { get; set; }
 
-    /// <summary>
-    /// Дата поступления
-    /// </summary>
-    public string AvailableDate { get; set; }
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
+        public string Birthdate { get; set; }
 
-    /// <summary>
-    /// Дата убытия
-    /// </summary>
-    public string DismissalDate { get; set; }
+        /// <summary>
+        /// Пол
+        /// </summary>
+        public string Sex { get; set; }
 
+        /// <summary>
+        /// Номер личного дела
+        /// </summary>
+        public string PersonalFileNumber { get; set; }
 
+        /// <summary>
+        /// Дата поступления
+        /// </summary>
+        public string AvailableDate { get; set; }
 
-    /// <summary>
-    /// Первый иностранный язык
-    /// </summary>
-    public string FirstLanguage { get; set; }
+        /// <summary>
+        /// Дата убытия
+        /// </summary>
+        public string DismissalDate { get; set; }
 
-    /// <summary>
-    /// Второй иностранный язык
-    /// </summary>
-    public string SecondLanguage { get; set; }
+        /// <summary>
+        /// Первый иностранный язык
+        /// </summary>
+        public string FirstLanguage { get; set; }
 
-    /// <summary>
-    /// Адрес
-    /// </summary>
-    public string Adress { get; set; }
+        /// <summary>
+        /// Второй иностранный язык
+        /// </summary>
+        public string SecondLanguage { get; set; }
 
-    /// <summary>
-    /// Отец и его номер телефона через ?
-    /// </summary>
-    public string Father { get; set; }
+        /// <summary>
+        /// Откуда прибыл номер#область#город
+        /// </summary>
+        public string FromSchool { get; set; }
 
-    /// <summary>
-    /// Мама и ее номер телефона через  ?
-    /// </summary>
-    public string Mather { get; set; }
+        /// <summary>
+        /// Куда убыл номер#область#город
+        /// </summary>
+        public string ToSchool { get; set; }
 
-    /// <summary>
-    /// Откуда прибыл номер?область?город
-    /// </summary>
-    public string FromSchool { get; set; }
+        /// <summary>
+        /// Инвалидность
+        /// </summary>
+        public bool Invalidity { get; set; }
 
-    /// <summary>
-    /// Куда убыл номер?область?город
-    /// </summary>
-    public string ToSchool { get; set; }
+        /// <summary>
+        /// Инклюзив(ВШУ)
+        /// </summary>
+        public bool Inclusive { get; set; }
 
-    /// <summary>
-    /// Инвалидность
-    /// </summary>
-    public bool Invalidity { get; set; }
+        /// <summary>
+        /// Приказ о зачислении дата
+        /// </summary>
+        public DateTime EnrollmentDecree { get; set; }
 
-    /// <summary>
-    /// Инклюзив
-    /// </summary>
-    public bool Inclusive { get; set; }
+        /// <summary>
+        /// Приказ об отчислении дата
+        /// </summary>
+        public string DismissalDecree { get; set; }
 
+        /// <summary>
+        /// Надомное обучение
+        /// </summary>
+        public bool HomeSchooling { get; set; }
 
-    /// <summary>
-    /// Приказ о зачислении номер?дата
-    /// </summary>
-    public string EnrollmentDecree { get; set; }
+        /// <summary>
+        /// Находится в архиве
+        /// </summary>
+        public bool IsArhive { get; set; }
 
-    /// <summary>
-    /// Приказ об отчислении номер?дата
-    /// </summary>
-    public string DismissalDecree { get; set; }
+        /// <summary>
+        /// Класс при помещении в архив
+        /// </summary>
+        public string ArhivGroup { get; set; }
 
+        /// <summary>
+        /// Примечание
+        /// </summary>
+        public string OtherText { get; set; }
 
-    /// <summary>
-    /// Похвальный лист
-    /// </summary>
-    public string Diplom { get; set; }
+        /// <summary>
+        /// Условно переведен
+        /// </summary>
+        public bool ProbationTransferred { get; set; }
+    }
 
-    /// <summary>
-    /// Надомное обучение
-    /// </summary>
-    public bool HomeSchooling { get; set; }
+    public class Teacher
+    {
+        private Guid Id;
 
-    /// <summary>
-    /// Находится в архиве
-    /// </summary>
-    public bool IsArhive { get; set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string SecondName { get; set; }
 
-    /// <summary>
-    /// Класс при помещении в архив
-    /// </summary>
-    public string ArhivGroup { get; set; }
-
-    /// <summary>
-    /// Примечание
-    /// </summary>
-    public string OtherText { get; set; }
-
-    /// <summary>
-    /// Условно переведен
-    /// </summary>
-    public bool ProbationTransferred { get; set; }
-}
+        /// <summary>
+        /// Имя
+        /// </summary>
+        public string FirstName { get; set; }
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public string MiddleName { get; set; }
+        /// <summary>
+        /// ФИО
+        /// </summary>
+        public string FullName => $"{SecondName} {FirstName} {MiddleName}";
+    }
 }
