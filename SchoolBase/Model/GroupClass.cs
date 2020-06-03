@@ -72,6 +72,8 @@ namespace SchoolBase.Model
         /// </summary>
         public List<Student> Students
         {
+            get;
+            set;
             //get { return Proxy.StudentList.Where(st => st.Group == this).ToList(); }
         }
     }
