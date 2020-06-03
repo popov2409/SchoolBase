@@ -5,8 +5,186 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+         Title="ШколЯр"
+        Width="800"
+        Height="600"
+        Icon="Icons/school.ico"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu FontSize="14">
+            <MenuItem Header="Администрирование">
+                <MenuItem Header="Список классов" />
+                <MenuItem Header="Список четвертей" />
+                <MenuItem Header="Добавить школьников" />
+            </MenuItem>
+            <MenuItem Header="Отчеты">
+               
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TreeView Name="MainTreeView"
+                      Grid.Column="0"
+                      FontSize="16">
+                <TreeViewItem Name="ElementarySchoolTreeView" Header="Начальная школа" />
+                <TreeViewItem Name="MiddleSchoolTreeView" Header="Средняя школа"  />
+                <TreeViewItem Name="HightSchoolTreeView" Header="Старшая школа" />
+            </TreeView>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Name="ViewStudentButton"
+                            Width="30"
+                            Margin="1">
+                        <StackPanel>
+                            <Image Source="Icons/search.png" />
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <TextBlock FontSize="16" Text="Отчет" />
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Name="EditStudentButton"
+                            Width="30"
+                            Margin="1">
+                        <StackPanel>
+                            <Image Source="Icons/Edit.png" />
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <TextBlock FontSize="16" Text="Редактировать" />
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Name="DeleteStudentButton"
+                            Width="30"
+                            Margin="1">
+                        <StackPanel>
+                            <Image Source="Icons/Delete.png" />
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <TextBlock FontSize="16" Text="Удалить" />
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Name="ToArhivStudentButton"
+                            Width="30"
+                            Margin="1">
+                        <StackPanel>
+                            <Image Source="Icons/Arphif.png" />
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <TextBlock FontSize="16" Text="В архив" />
+                        </Button.ToolTip>
+                    </Button>
+                    <TextBox Name="SearchTextBox"
+                             MinWidth="200"
+                             Margin="1"
+                             VerticalContentAlignment="Center"
+                             FontSize="16"/>
+                    <CheckBox Name="IsArhiveSearchCheckBox"  Content="Поиск в архиве" Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center" />
+                </StackPanel>
+                <DataGrid Name="MainGrid"
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          FontSize="14"
+                          IsReadOnly="True">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <TextBlock Text="{Binding Path=Student.Group.FullValue}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="150"
+                                            Binding="{Binding Path=FullName}"
+                                            Header="  ФИО" />
+                        <DataGridTextColumn Binding="{Binding Path=Birthdate}" Header="Дата рождения">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Sex}" Header="Пол">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=PersonalFileNumber}" Header="№ личного дела">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=FirstLanguage}" Header="Основной язык">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Invalidity}" Header="Инвалид">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Inclusive}" Header="ВШУ">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Come}" Header="Прибыл">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=EnrollmentDecree}" Header="Дата приказа">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=Go}" Header="Выбыл">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=DismissalDecree}" Header="Дата приказа">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

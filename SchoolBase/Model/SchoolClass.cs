@@ -18,63 +18,44 @@ namespace SchoolBase.Model
         public int Number { get; set; }
 
         /// <summary>
-        /// Буква
+        /// Буква(или символы)
         /// </summary>
         public string Character { get; set; }
+
+        public List<GroupSchoolClass> GroupSchoolClasses =>
+            DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == this.Id).ToList();
 
         /// <summary>
         /// Категория класса
         /// </summary>
         public CategorySchoolClass Category { get; set; }
 
-
         /// <summary>
         /// Статуc класса
         /// </summary>
         public StatusSchoolClass Status { get; set; }
 
-
         /// <summary>
         /// Целиковое значение класса
         /// </summary>
-        public string FullValue
-        {
-            get
-            {
-                return String.Format("{0}{1}", Number.ToString(),
-                    Character.ToString().ToUpper());
-            }
-        }
+        public string FullValue => $"{Number}{Character}";
 
         /// <summary>
         /// Целиковое значение класса и руководитель
         /// </summary>
-        public string FullValueTeacher
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(Teacher)
-                    ? String.Format("{0} К/Р - {1}", FullValue, Teacher)
-                    : FullValue;
-            }
-        }
+        public string FullValueTeacher => Teacher != null ? $"{FullValue} К/Р - {Teacher.FullName}" : FullValue;
 
         /// <summary>
-        /// Классный руководитель Id
+        /// Классный руководитель
         /// </summary>
-        public string Teacher { get; set; }
-
-        
+        public Teacher Teacher { get; set; }
 
         /// <summary>
         /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников
         /// </summary>
-        public List<Student> Students
-        {
-            get;
-            set;
-        }
+        public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.School == this.Id).ToList();
     }
+
 
     /// <summary>
     /// Категория класса(начальная школа/средняя школа/старшая школа)
@@ -82,6 +63,10 @@ namespace SchoolBase.Model
     public class CategorySchoolClass
     {
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Наименование категории
+        /// </summary>
         public string Value { get; set; }
     }
 
@@ -91,6 +76,40 @@ namespace SchoolBase.Model
     public class StatusSchoolClass
     {
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Наименование статуса
+        /// </summary>
+        public string Value { get; set; }
+    }
+
+    /// <summary>
+    /// Группа внутри класса
+    /// </summary>
+    public class GroupSchoolClass
+    {
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Номер группы в классе
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
+        /// Наименование статуса
+        /// </summary>
+        public string Value { get; set; }
+
+        /// <summary>
+        /// Класс
+        /// </summary>
+        public Guid SchoolClass { get; set; }
+    }
+
+
+    public class Language
+    {
+        private Guid Id;
         public string Value { get; set; }
     }
 }

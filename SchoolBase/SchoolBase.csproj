@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\CategorySchoolClass\CategorySchoolClassListView.xaml.cs">
+      <DependentUpon>CategorySchoolClassListView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,9 +72,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\CategorySchoolClass\CategorySchoolClassListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DbProxy.cs" />
+    <Compile Include="Model\Quarter.cs" />
     <Compile Include="Model\SchoolClass.cs" />
     <Compile Include="Model\SchoolDb.cs" />
     <Compile Include="Model\Student.cs" />
@@ -99,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataBase\" />
+    <Folder Include="View\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Arphif.png" />

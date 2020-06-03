@@ -9,21 +9,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SchoolBase.Model;
 
-namespace SchoolBase
+namespace SchoolBase.View.CategorySchoolClass
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для CategorySchoolClassListView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CategorySchoolClassListView : Window
     {
-        public MainWindow()
+        public CategorySchoolClassListView()
         {
             InitializeComponent();
-            DbProxy.LoadData();
         }
     }
 }

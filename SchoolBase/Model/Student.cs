@@ -34,7 +34,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Класс в котором учится
         /// </summary>
-        public SchoolClass School { get; set; }
+        public Guid School { get; set; }
 
         /// <summary>
         /// Дата рождения
@@ -64,22 +64,17 @@ namespace SchoolBase.Model
         /// <summary>
         /// Первый иностранный язык
         /// </summary>
-        public string FirstLanguage { get; set; }
+        public Guid FirstLanguage { get; set; }
 
         /// <summary>
         /// Второй иностранный язык
         /// </summary>
-        public string SecondLanguage { get; set; }
+        public Guid SecondLanguage { get; set; }
 
         /// <summary>
         /// Откуда прибыл номер#область#город
         /// </summary>
         public string FromSchool { get; set; }
-
-        /// <summary>
-        /// Куда убыл номер#область#город
-        /// </summary>
-        public string ToSchool { get; set; }
 
         /// <summary>
         /// Инвалидность
