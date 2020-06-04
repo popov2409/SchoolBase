@@ -27,6 +27,7 @@ namespace SchoolBase
         {
             InitializeComponent();
             DbProxy.LoadData();
+            //new CategorySchoolClassListView().ShowDialog();
             InitializeTreeView();
             //new AddStudentView().ShowDialog();
         }
@@ -37,14 +38,32 @@ namespace SchoolBase
             foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses)
             {
                 TreeViewItem item=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value};
+                item.PreviewMouseUp += Item_PreviewMouseUp;
                 foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).ToList())
                 {
                     TreeViewItem inItem=new TreeViewItem(){Header = schoolClass.FullValue};
                     inItem.PreviewMouseDoubleClick += InItem_PreviewMouseDoubleClick;
                 }
+
+                MainTreeView.Items.Add(item);
             }
         }
 
+        /// <summary>
+        /// Клик по категории классов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Item_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Клик по классу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InItem_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             throw new NotImplementedException();
@@ -53,6 +72,12 @@ namespace SchoolBase
         private void Window_Closed(object sender, EventArgs e)
         {
             DbProxy.SaveData();
+        }
+
+        private void CategoryClassSchoolMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new CategorySchoolClassListView().ShowDialog();
+            InitializeTreeView();
         }
     }
 }

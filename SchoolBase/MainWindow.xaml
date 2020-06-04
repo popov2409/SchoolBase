@@ -17,8 +17,10 @@
         </Grid.RowDefinitions>
         <Menu FontSize="14">
             <MenuItem Header="Администрирование">
-                <MenuItem Header="Список классов" />
-                <MenuItem Header="Список четвертей" />
+                <MenuItem Header="Списки" >
+                    <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"></MenuItem>
+                </MenuItem>
+                    <MenuItem Header="Список четвертей" />
                 <MenuItem Header="Добавить школьников" />
             </MenuItem>
             <MenuItem Header="Отчеты">
@@ -33,9 +35,6 @@
             <TreeView Name="MainTreeView"
                       Grid.Column="0"
                       FontSize="16">
-                <!--<TreeViewItem Name="ElementarySchoolTreeView" Header="Начальная школа" />
-                <TreeViewItem Name="MiddleSchoolTreeView" Header="Средняя школа"  />
-                <TreeViewItem Name="HightSchoolTreeView" Header="Старшая школа" />-->
             </TreeView>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
