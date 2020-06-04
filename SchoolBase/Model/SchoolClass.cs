@@ -106,10 +106,12 @@ namespace SchoolBase.Model
         public Guid SchoolClass { get; set; }
     }
 
-
+    /// <summary>
+    /// Изучаемые языки
+    /// </summary>
     public class Language
     {
-        private Guid Id;
+        public Guid Id;
         public string Value { get; set; }
     }
 }

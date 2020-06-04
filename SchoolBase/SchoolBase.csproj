@@ -62,6 +62,9 @@
     <Compile Include="View\ClassRoom\AddClassRoomView.xaml.cs">
       <DependentUpon>AddClassRoomView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ClassRoom\LanguageListView.xaml.cs">
+      <DependentUpon>LanguageListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ClassRoom\StatusSchoolClassListView.xaml.cs">
       <DependentUpon>StatusSchoolClassListView.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ClassRoom\AddClassRoomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClassRoom\LanguageListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
