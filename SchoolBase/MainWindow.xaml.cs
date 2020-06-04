@@ -100,5 +100,10 @@ namespace SchoolBase
             new ClassSchoolListView().ShowDialog();
             InitializeTreeView();
         }
+
+        private void TeacherMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new TeacherListView().ShowDialog();
+        }
     }
 }

@@ -78,7 +78,7 @@ namespace SchoolBase.View.ClassRoom
             }
 
             cat =
-                DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Value.Contains(CategoryComboBox.Text.TrimStart()));
+                DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Value.Contains(CategoryComboBox.SelectedValue.ToString().TrimStart()));
             InitializeListBox();
         }
 
@@ -89,7 +89,19 @@ namespace SchoolBase.View.ClassRoom
                 st = null;
                 return;
             }
-            st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.Text.TrimStart()));
+            st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.SelectedValue.ToString().TrimStart()));
+            InitializeListBox();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (cat == null || st == null)
+            {
+                MessageBox.Show("Не выбнана категория или статус класса!");
+                return;
+            }
+
+            new ClassSchoolAdd(cat, st).ShowDialog();
             InitializeListBox();
         }
     }

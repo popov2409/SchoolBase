@@ -22,6 +22,7 @@
                     <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
                     <MenuItem Header="Классы" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
                     <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+                    <MenuItem Header="Учителя" Name="TeacherMenuItem" Click="TeacherMenuItem_OnClick"></MenuItem>
                     <MenuItem Header="Четверти" Name="QuarterMenuItem" Click="QuarterMenuItem_OnClick"/>
                 </MenuItem>
                 <MenuItem Header="Добавить школьников" />

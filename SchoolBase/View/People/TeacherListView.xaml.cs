@@ -23,7 +23,7 @@ namespace SchoolBase.View.Teacher
         {
             InitializeComponent();
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers.OrderBy(c => c.FullName);
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
@@ -34,7 +34,8 @@ namespace SchoolBase.View.Teacher
                 Id = Guid.NewGuid(), FullName = FullNameTextBlock.Text
             });
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers.OrderBy(c=>c.FullName);
+            FullNameTextBlock.Text = "";
 
         }
 
@@ -43,7 +44,7 @@ namespace SchoolBase.View.Teacher
             if (e.Key != Key.Delete) return;
             DbProxy.SchoolDb.Teachers.Remove(MainListBox.SelectedItem as Model.Teacher);
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers.OrderBy(c => c.FullName);
 
         }
     }

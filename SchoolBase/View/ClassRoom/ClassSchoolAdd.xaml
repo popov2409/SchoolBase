@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.ClassRoom"
         mc:Ignorable="d"
-        Title="Класс" Height="450" Width="800">
+        Title="Класс" Height="300" Width="650" FontSize="16" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
+                <TextBlock Text="Категория класса:" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBlock Name="CategoryTextBlock"  HorizontalAlignment="Center" Margin="2,0,40,0"/>
+                <TextBlock Text="Статус класса:" FontWeight="Bold" HorizontalAlignment="Center" Margin="2,0,10,0"/>
+                <TextBlock Name="StatusTextBlock"  HorizontalAlignment="Center" Margin="2,0,40,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
+                <TextBlock Text="Класс:" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox Name="NumTextBlock"  Width="60" HorizontalAlignment="Center" Margin="2,0,0,0" IsEditable="True" FontSize="14"/>
+                <TextBox Name="CharTextBlock"  Width="50" HorizontalAlignment="Center" Margin="10,0,40,0" FontSize="14" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
+                <TextBlock Text="Классный руководитель:" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox Name="TeacherComboBox" Width="400" IsEditable="True" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
+                <TextBlock Text="Группа:" FontWeight="Bold" HorizontalAlignment="Left" />
+                <TextBlock Text="Номер:" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                <TextBox Name="NumGroupTextBox" MinWidth="30" FontSize="14" VerticalContentAlignment="Center"/>
+                <TextBlock Text="Наименование:" HorizontalAlignment="Left" Margin="10,0,5,0"/>
+                <TextBox Name="ValGroupTextBox" MinWidth="260" FontSize="14" VerticalContentAlignment="Center"/>
+                <Button Name="AddButton" Margin="5,0,0,0" Width="30" Content="+" FontWeight="Bold" Click="AddButton_Click"/>
+                <Button Name="DelButton" Margin="2,0,0,0" Width="30" Content="-" FontWeight="Bold" Click="DelButton_Click"/>
+            </StackPanel>
+            <ListBox Name="GroupListBox" Height="100" HorizontalAlignment="Stretch" Margin="20,5,20,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Number}" FontSize="14"/>
+                            <TextBlock Text="-" FontSize="14"/>
+                            <TextBlock Text="{Binding Path=Value}" FontSize="14"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+                
+                    <Grid Margin="20,5,20,0" Height="35">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Name="SaveButtom" Content="Сохранить" FontSize="16" Margin="2"/>
+                <Button Name="CancelButtom" Content="Отменить" Grid.Column="1"  FontSize="16" Margin="2"/>
+            </Grid>
+        </StackPanel>
+       
+
         
     </Grid>
 </Window>
