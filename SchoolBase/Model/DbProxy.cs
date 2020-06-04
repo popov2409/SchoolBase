@@ -17,16 +17,18 @@ namespace SchoolBase.Model
 
         public static void LoadData()
         {
-            SchoolDb=new SchoolDb();
+            SchoolDb = new SchoolDb();
             XmlSerializer formatter = new XmlSerializer(typeof(SchoolDb));
-            using (FileStream fs = new FileStream("data.xml", FileMode.OpenOrCreate))
             {
                 try
                 {
-                    SchoolDb = (SchoolDb)formatter.Deserialize(fs);
+                    using (StreamReader fs = new StreamReader("data.xml", Encoding.Default))
+                    {
 
+                        SchoolDb = (SchoolDb) formatter.Deserialize(fs);
+                    }
                 }
-                catch
+                catch (Exception e)
                 {
                     // ignored
                 }
@@ -36,7 +38,7 @@ namespace SchoolBase.Model
         public static void SaveData()
         {
             XmlSerializer formatter = new XmlSerializer(typeof(SchoolDb));
-            using (FileStream fs = new FileStream("data.xml", FileMode.OpenOrCreate))
+            using (StreamWriter fs = new StreamWriter("data.xml",false,Encoding.Default))
             {
                 formatter.Serialize(fs,SchoolDb);
             }

@@ -62,10 +62,13 @@
     <Compile Include="View\ClassRoom\AddClassRoomView.xaml.cs">
       <DependentUpon>AddClassRoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Student\AddStudentView.xaml.cs">
+    <Compile Include="View\ClassRoom\StatusSchoolClassListView.xaml.cs">
+      <DependentUpon>StatusSchoolClassListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\People\AddStudentView.xaml.cs">
       <DependentUpon>AddStudentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Teacher\TeacherListView.xaml.cs">
+    <Compile Include="View\People\TeacherListView.xaml.cs">
       <DependentUpon>TeacherListView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -92,11 +95,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Student\AddStudentView.xaml">
+    <Page Include="View\ClassRoom\StatusSchoolClassListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Teacher\TeacherListView.xaml">
+    <Page Include="View\People\AddStudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\People\TeacherListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,9 +136,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Icons\Arphif.png" />
     <Resource Include="Icons\cancel.png" />

@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SchoolBase.Model;
 using SchoolBase.View.CategorySchoolClass;
+using SchoolBase.View.ClassRoom;
 using SchoolBase.View.Student;
 using SchoolBase.View.Teacher;
 
@@ -78,6 +79,11 @@ namespace SchoolBase
         {
             new CategorySchoolClassListView().ShowDialog();
             InitializeTreeView();
+        }
+
+        private void StatusClassSchoolMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new StatusSchoolClassListView().ShowDialog();
         }
     }
 }

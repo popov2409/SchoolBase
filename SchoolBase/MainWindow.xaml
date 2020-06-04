@@ -18,7 +18,8 @@
         <Menu FontSize="14">
             <MenuItem Header="Администрирование">
                 <MenuItem Header="Списки" >
-                    <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"></MenuItem>
+                    <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
+                    <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"></MenuItem>
                 </MenuItem>
                     <MenuItem Header="Список четвертей" />
                 <MenuItem Header="Добавить школьников" />
