@@ -8,7 +8,7 @@ namespace SchoolBase.Model
     /// <summary>
     /// Четверти
     /// </summary>
-    class Quarter
+    public class Quarter
     {
         /// <summary>
         /// Id

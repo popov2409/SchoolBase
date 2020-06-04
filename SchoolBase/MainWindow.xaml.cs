@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using SchoolBase.Model;
 using SchoolBase.View.CategorySchoolClass;
 using SchoolBase.View.ClassRoom;
+using SchoolBase.View.Quarter;
 using SchoolBase.View.Student;
 using SchoolBase.View.Teacher;
 
@@ -28,9 +29,7 @@ namespace SchoolBase
         {
             InitializeComponent();
             DbProxy.LoadData();
-            //new CategorySchoolClassListView().ShowDialog();
             InitializeTreeView();
-            //new AddStudentView().ShowDialog();
         }
 
         void InitializeTreeView()
@@ -84,6 +83,21 @@ namespace SchoolBase
         private void StatusClassSchoolMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new StatusSchoolClassListView().ShowDialog();
+        }
+
+        private void LanguageMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new LanguageListView().ShowDialog();
+        }
+
+        private void QuarterMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new QuarterListView().ShowDialog();
+        }
+
+        private void ClassSchoolMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

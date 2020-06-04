@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace SchoolBase.View.ClassRoom
 {
     /// <summary>
-    /// Логика взаимодействия для AddClassRoomView.xaml
+    /// Логика взаимодействия для ClassSchoolListView.xaml
     /// </summary>
-    public partial class AddClassRoomView : Window
+    public partial class ClassSchoolListView : Window
     {
-        public AddClassRoomView()
+        public ClassSchoolListView()
         {
             InitializeComponent();
         }

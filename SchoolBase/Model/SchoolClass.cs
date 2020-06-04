@@ -38,7 +38,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Целиковое значение класса
         /// </summary>
-        public string FullValue => $"{Number}{Character}";
+        public string FullValue => $"{Number}-{Character}";
 
         /// <summary>
         /// Целиковое значение класса и руководитель

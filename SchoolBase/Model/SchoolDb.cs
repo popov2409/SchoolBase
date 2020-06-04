@@ -19,6 +19,8 @@ namespace SchoolBase.Model
             CategorySchoolClasses=new List<CategorySchoolClass>();
             GroupSchoolClasses=new List<GroupSchoolClass>();
             Languages=new List<Language>();
+            Quarters=new List<Quarter>();
+
         }
 
         /// <summary>
@@ -55,5 +57,8 @@ namespace SchoolBase.Model
         /// Список языков в школе
         /// </summary>
         public List<Language> Languages { get; set; }
+        
+
+        public List<Quarter> Quarters { get; set; }
     }
 }

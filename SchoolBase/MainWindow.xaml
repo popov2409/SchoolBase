@@ -18,10 +18,12 @@
         <Menu FontSize="14">
             <MenuItem Header="Администрирование">
                 <MenuItem Header="Списки" >
+                    <MenuItem Header="Изучаемые языки" Name="LanguageMenuItem" Click="LanguageMenuItem_OnClick"/>
                     <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
-                    <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"></MenuItem>
+                    <MenuItem Header="Классы" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
+                    <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+                    <MenuItem Header="Четверти" Name="QuarterMenuItem" Click="QuarterMenuItem_OnClick"/>
                 </MenuItem>
-                    <MenuItem Header="Список четвертей" />
                 <MenuItem Header="Добавить школьников" />
             </MenuItem>
             <MenuItem Header="Отчеты">
