@@ -97,7 +97,8 @@ namespace SchoolBase
 
         private void ClassSchoolMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            new ClassSchoolListView().ShowDialog();
+            InitializeTreeView();
         }
     }
 }

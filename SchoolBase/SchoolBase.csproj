@@ -61,6 +61,9 @@
     <Compile Include="View\ClassRoom\CategorySchoolClassListView.xaml.cs">
       <DependentUpon>CategorySchoolClassListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ClassRoom\ClassSchoolAdd.xaml.cs">
+      <DependentUpon>ClassSchoolAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ClassRoom\ClassSchoolListView.xaml.cs">
       <DependentUpon>ClassSchoolListView.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ClassRoom\CategorySchoolClassListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClassRoom\ClassSchoolAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

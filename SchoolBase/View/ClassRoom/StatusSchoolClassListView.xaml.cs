@@ -22,16 +22,14 @@ namespace SchoolBase.View.ClassRoom
         public StatusSchoolClassListView()
         {
             InitializeComponent();
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses;
+            InitializeListBox();
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (CategoryNameTextBlock.Text.Replace(" ", "").Length == 0) return;
             DbProxy.SchoolDb.StatusSchoolClasses.Add(new Model.StatusSchoolClass() { Id = Guid.NewGuid(), Value = CategoryNameTextBlock.Text });
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses;
+            InitializeListBox();
 
             CategoryNameTextBlock.Text = "";
         }
@@ -40,8 +38,13 @@ namespace SchoolBase.View.ClassRoom
         {
             if (e.Key != Key.Delete) return;
             DbProxy.SchoolDb.StatusSchoolClasses.Remove(MainListBox.SelectedItem as Model.StatusSchoolClass);
+            InitializeListBox();
+        }
+
+        void InitializeListBox()
+        {
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses.OrderBy(c => c.Value);
         }
     }
 }

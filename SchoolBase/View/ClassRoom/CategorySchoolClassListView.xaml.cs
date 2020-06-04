@@ -30,6 +30,27 @@ namespace SchoolBase.View.CategorySchoolClass
         private void MainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedCategory=MainListBox.SelectedItem as Model.CategorySchoolClass;
+            //if (MainListBox.SelectedIndex == 0)
+            //{
+            //    ((MainListBox.SelectedItem as TextBlock).ContextMenu.Items[0] as MenuItem).Visibility =
+            //        Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    ((MainListBox.SelectedItem as TextBlock).ContextMenu.Items[0] as MenuItem).Visibility =
+            //        Visibility.Visible;
+            //}
+
+            //if (MainListBox.SelectedIndex == MainListBox.Items.Count-1)
+            //{
+            //    ((MainListBox.SelectedItem as TextBlock).ContextMenu.Items[MainListBox.Items.Count - 1] as MenuItem).Visibility =
+            //        Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    ((MainListBox.SelectedItem as TextBlock).ContextMenu.Items[MainListBox.Items.Count - 1] as MenuItem).Visibility =
+            //        Visibility.Visible;
+            //}
         }
 
         private void AddCategoryButton_OnClick(object sender, RoutedEventArgs e)

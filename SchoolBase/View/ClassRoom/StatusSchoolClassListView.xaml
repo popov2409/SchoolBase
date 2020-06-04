@@ -23,6 +23,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Value}"/>
+                        
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -22,25 +22,28 @@ namespace SchoolBase.View.ClassRoom
         public LanguageListView()
         {
             InitializeComponent();
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Languages;
+            SetSourceMainListBox();
         }
 
         private void LanguageListView_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Delete) return;
             DbProxy.SchoolDb.Languages.Remove(MainListBox.SelectedItem as Model.Language);
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Languages;
+            SetSourceMainListBox();
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (NameTextBlock.Text.Replace(" ", "").Length == 0) return;
             DbProxy.SchoolDb.Languages.Add(new Model.Language() { Id = Guid.NewGuid(), Value = NameTextBlock.Text });
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.Languages;
+            SetSourceMainListBox();
             NameTextBlock.Text = "";
+        }
+
+        void SetSourceMainListBox()
+        {
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.Languages.OrderBy(c => c.Value); ;
         }
     }
 }

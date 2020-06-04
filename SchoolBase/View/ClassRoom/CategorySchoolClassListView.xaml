@@ -22,7 +22,15 @@
         <ListBox Name="MainListBox" Grid.Row="1" SelectionChanged="MainListBox_SelectionChanged" FontSize="14">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=Value}"/>
+                    <TextBlock Text="{Binding Path=Value}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Поднять" Name="UpMenuItem"/>
+                                <MenuItem Header="Опустить" Name="DownMenuItem"/>
+                                <MenuItem Header="Удалить" Name="DeleteMenuItem"/>
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SchoolBase.Model;
 
 namespace SchoolBase.View.ClassRoom
 {
@@ -21,6 +22,75 @@ namespace SchoolBase.View.ClassRoom
         public ClassSchoolListView()
         {
             InitializeComponent();
+            InitializeComboBoxes();
+            InitializeListBox();
+        }
+
+        void InitializeComboBoxes()
+        {
+            //CategoryComboBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            //StatusComboBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses.OrderBy(c=>c.Value);
+
+            CategoryComboBox.Items.Add("Все");
+            StatusComboBox.Items.Add("Все");
+            CategoryComboBox.SelectedIndex = 0;
+            StatusComboBox.SelectedIndex = 0;
+            foreach (string val in DbProxy.SchoolDb.CategorySchoolClasses.Select(c => c.Value))
+            {
+                CategoryComboBox.Items.Add($"   {val}");
+            }
+
+            foreach (string val in DbProxy.SchoolDb.StatusSchoolClasses.Select(c => c.Value).OrderBy(c=>c))
+            {
+                StatusComboBox.Items.Add($"   {val}");
+            }
+        }
+
+        private Model.CategorySchoolClass cat;
+        private StatusSchoolClass st;
+        void InitializeListBox()
+        {
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character).OrderBy(c => c.Number);
+            if ((cat == null) && (st != null))
+            {
+                MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character)
+                    .OrderBy(c => c.Number).Where(c => c.Status == st.Id);
+            }
+            if ((cat != null) && (st == null))
+            {
+                MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character)
+                    .OrderBy(c => c.Number).Where(c => c.Category == cat.Id);
+            }
+            if ((cat != null) && (st != null))
+            {
+                MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character)
+                    .OrderBy(c => c.Number).Where(c => c.Status == st.Id && c.Category == cat.Id);
+            }
+        }
+
+        private void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategoryComboBox.SelectedIndex == 0)
+            {
+                cat = null;
+                return;
+            }
+
+            cat =
+                DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Value.Contains(CategoryComboBox.Text.TrimStart()));
+            InitializeListBox();
+        }
+
+        private void StatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategoryComboBox.SelectedIndex == 0)
+            {
+                st = null;
+                return;
+            }
+            st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.Text.TrimStart()));
+            InitializeListBox();
         }
     }
 }

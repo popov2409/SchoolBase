@@ -33,7 +33,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Статуc класса
         /// </summary>
-        public StatusSchoolClass Status { get; set; }
+        public Guid Status { get; set; }
 
         /// <summary>
         /// Целиковое значение класса
