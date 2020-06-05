@@ -39,10 +39,11 @@ namespace SchoolBase
             {
                 TreeViewItem item=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value};
                 item.PreviewMouseUp += Item_PreviewMouseUp;
-                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).ToList())
+                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).OrderBy(c=>c.Character).OrderBy(c=>c.Number).ToList())
                 {
                     TreeViewItem inItem=new TreeViewItem(){Header = schoolClass.FullValue};
                     inItem.PreviewMouseDoubleClick += InItem_PreviewMouseDoubleClick;
+                    item.Items.Add(inItem);
                 }
 
                 MainTreeView.Items.Add(item);

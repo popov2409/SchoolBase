@@ -84,7 +84,7 @@ namespace SchoolBase.View.ClassRoom
 
         private void StatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategoryComboBox.SelectedIndex == 0)
+            if (StatusComboBox.SelectedIndex == 0)
             {
                 st = null;
                 return;

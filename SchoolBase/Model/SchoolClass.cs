@@ -43,12 +43,12 @@ namespace SchoolBase.Model
         /// <summary>
         /// Целиковое значение класса и руководитель
         /// </summary>
-        public string FullValueTeacher => Teacher != null ? $"{FullValue} К/Р - {Teacher.FullName}" : FullValue;
+        public string FullValueTeacher => Teacher != null ? $"{FullValue} К/Р - {DbProxy.SchoolDb.Teachers.FirstOrDefault(c=>c.Id==Teacher).FullName}" : FullValue;
 
         /// <summary>
         /// Классный руководитель
         /// </summary>
-        public Teacher Teacher { get; set; }
+        public Guid Teacher { get; set; }
 
         /// <summary>
         /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников

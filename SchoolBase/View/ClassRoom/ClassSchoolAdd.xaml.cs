@@ -19,18 +19,16 @@ namespace SchoolBase.View.ClassRoom
     /// </summary>
     public partial class ClassSchoolAdd : Window
     {
-        private Model.CategorySchoolClass categoryGuid;
-        private StatusSchoolClass statusGuid;
+        private Model.CategorySchoolClass category;
+        private StatusSchoolClass status;
         private Guid Id;
 
         private List<GroupSchoolClass> GroupSchoolClasses;
-        public ClassSchoolAdd(Model.CategorySchoolClass categoryGuid, StatusSchoolClass statusGuid)
+        public ClassSchoolAdd(Model.CategorySchoolClass category, StatusSchoolClass status)
         {
-            this.categoryGuid = categoryGuid;
-            this.statusGuid = statusGuid;
+            this.category = category;
+            this.status = status;
             InitializeComponent();
-            CategoryTextBlock.Text = categoryGuid.Value;
-            StatusTextBlock.Text = statusGuid.Value;
             Id=Guid.NewGuid();
             GroupSchoolClasses = new List<GroupSchoolClass>();
             NumGroupTextBox.Text = (GroupSchoolClasses.Count + 1).ToString();
@@ -39,8 +37,19 @@ namespace SchoolBase.View.ClassRoom
 
         void InitializeCombobox()
         {
-           
+            CategoryComboBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            StatusComboBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses.OrderBy(c => c.Value);
+            CategoryComboBox.SelectedItem = category;
+            StatusComboBox.SelectedItem = status;
+            for (int i = 0; i < 11; i++)
+            {
+                NumComboBox.Items.Add(i + 1);
+            }
 
+            foreach (string teacher in DbProxy.SchoolDb.Teachers.OrderBy(c=>c.FullName).Select(c=>c.FullName))
+            {
+                TeacherComboBox.Items.Add(teacher);
+            }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -66,6 +75,47 @@ namespace SchoolBase.View.ClassRoom
             GroupListBox.ItemsSource = null;
             GroupListBox.ItemsSource = GroupSchoolClasses;
             NumGroupTextBox.Text = (GroupSchoolClasses.Count + 1).ToString();
+        }
+
+        private void SaveButtom_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (GroupSchoolClasses.Count < 1)
+            {
+                MessageBox.Show("Нет групп в классе!");
+                return;
+            }
+
+            if (CategoryComboBox.SelectedIndex < 0 || StatusComboBox.SelectedIndex < 0)
+            {
+                MessageBox.Show("Не указана категория или статус класса!");
+                return;
+            }
+            SchoolClass schoolClass=new SchoolClass()
+            {
+                Id = Id,
+                Category = (CategoryComboBox.SelectedItem as Model.CategorySchoolClass).Id,
+                Status = (StatusComboBox.SelectedItem as StatusSchoolClass).Id,
+                Number = int.Parse(NumComboBox.Text),
+                Character = CharTextBlock.Text,
+            };
+
+            if (TeacherComboBox.SelectedIndex < 0)
+            {
+                Model.Teacher teacher = new Model.Teacher() {Id = Guid.NewGuid(), FullName = TeacherComboBox.Text};
+                DbProxy.SchoolDb.Teachers.Add(teacher);
+                schoolClass.Teacher = teacher.Id;
+            }
+            else
+            {
+                schoolClass.Teacher = DbProxy.SchoolDb.Teachers.First(c => c.FullName.Equals(TeacherComboBox.Text)).Id;
+            }
+            DbProxy.SchoolDb.SchoolClasses.Add(schoolClass);
+            this.Close();
+        }
+
+        private void CancelButtom_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -29,7 +29,7 @@
             <ComboBox Name="StatusComboBox" Grid.Row="1" Grid.Column="1" Margin="2" SelectionChanged="StatusComboBox_SelectionChanged" FontSize="14"/>
         </Grid>
         
-        <ListBox Grid.Row="1" Name="MainListBox">
+        <ListBox Grid.Row="1" Name="MainListBox" FontSize="14">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=FullValueTeacher}"/>
