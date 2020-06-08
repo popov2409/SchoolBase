@@ -113,5 +113,17 @@ namespace SchoolBase
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c=>c.FullName.Contains(SearchTextBox.Text));
         }
+
+        private void EditStudentButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem != null)
+            {
+                new AddStudentView(MainGrid.SelectedItem as Student).ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Выберите школьника!");
+            }
+        }
     }
 }

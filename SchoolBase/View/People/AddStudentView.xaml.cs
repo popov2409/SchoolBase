@@ -33,8 +33,60 @@ namespace SchoolBase.View.Student
 
         }
 
-        void SetFields(Model.Student lStudent)
+        void SetFields(Model.Student l_student)
         {
+            //ФИО
+            FullNameTextBox.Text = l_student.FullName;
+            //Дата рождения
+            if (l_student.Birthdate.Length > 0) Birthdate.SelectedDate = DateTime.Parse(l_student.Birthdate);
+            //Пол
+            SexComboBox.Text = l_student.Sex;
+            //Личное дело
+            PersonalFileNumberTextBox.Text = l_student.PersonalFileNumber;
+            //инвалид
+             InvalidityCheckBox.IsChecked = l_student.Invalidity;
+            //Инклюзив
+            InclusiveCheckBox.IsChecked = l_student.Inclusive;
+            //надомное обучение
+            HomeSchoolingCheckBox.IsChecked = l_student.HomeSchooling;
+            //Другие данные
+            OtherTextBox.Text = l_student.OtherText;
+            //дата поступления в школу
+            if (l_student.AvailableDate.Length > 0)
+                AvailableDate.SelectedDate = DateTime.Parse(l_student.AvailableDate);
+
+            //Откуда прибыл
+            FromSchoolNumberTextBox.Text= l_student.FromSchool.Split('#')[0];
+            FromRegionComboBox.Text= l_student.FromSchool.Split('#')[1];
+            FromSityComboBox.Text= l_student.FromSchool.Split('#')[2];
+
+            //Приказ о зачислении
+            if (l_student.EnrollmentDecree.Length > 0)
+                EnrollmentDecreeDate.SelectedDate = DateTime.Parse(l_student.EnrollmentDecree);
+            //Приказ об отчислении
+            if (l_student.DismissalDecree.Length > 0)
+                DismissalDecreeDate.SelectedDate = DateTime.Parse(l_student.DismissalDecree);
+            //Переведен условно
+            ConditionallyCheckBox.IsChecked = l_student.ProbationTransferred;
+
+            //Дата убытия
+            //DismissalDate.SelectedDate = DateTime.Parse(l_student.DismissalDate);
+
+            /*
+            //Класс
+            l_student.GroupGuid = GroupSchoolComboBox.SelectedIndex < 0 ? new Guid() : ((GroupSchoolClass)GroupSchoolComboBox.SelectedItem).Id;
+           
+            
+            
+            
+            //Основной язык
+            l_student.FirstLanguage = ((Language)FirstLanguageComboBox.SelectedItem)?.Id ?? new Guid();
+            //Второй язык
+            l_student.SecondLanguage = ((Language)SecondLanguageComboBox.SelectedItem)?.Id ?? new Guid();*/
+
+
+
+
         }
 
         void InitializeBoxes()
@@ -120,7 +172,7 @@ namespace SchoolBase.View.Student
             //Личное дело
             l_student.PersonalFileNumber = PersonalFileNumberTextBox.Text;
             //Откуда прибыл
-            l_student.FromSchool = $"{FromSchoolNumberTextBox.Text}?#{FromRegionComboBox.Text}#{FromSityComboBox.Text}";
+            l_student.FromSchool = $"{FromSchoolNumberTextBox.Text}#{FromRegionComboBox.Text}#{FromSityComboBox.Text}";
             //Основной язык
             l_student.FirstLanguage = ((Language) FirstLanguageComboBox.SelectedItem)?.Id ?? new Guid();
             //Второй язык

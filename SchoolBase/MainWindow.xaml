@@ -58,7 +58,9 @@
                     </Button>
                     <Button Name="EditStudentButton"
                             Width="30"
-                            Margin="1">
+                            Margin="1"
+                            Click="EditStudentButton_OnClick"
+                            >
                         <StackPanel>
                             <Image Source="Icons/Edit.png" />
                         </StackPanel>
