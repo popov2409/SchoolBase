@@ -30,6 +30,8 @@ namespace SchoolBase
             InitializeComponent();
             DbProxy.LoadData();
             InitializeTreeView();
+            //new AddStudentView(null).ShowDialog();
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students;
         }
 
         void InitializeTreeView()
@@ -105,6 +107,11 @@ namespace SchoolBase
         private void TeacherMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new TeacherListView().ShowDialog();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c=>c.FullName.Contains(SearchTextBox.Text));
         }
     }
 }

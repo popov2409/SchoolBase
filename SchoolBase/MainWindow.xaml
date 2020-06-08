@@ -90,7 +90,7 @@
                              MinWidth="200"
                              Margin="1"
                              VerticalContentAlignment="Center"
-                             FontSize="16"/>
+                             FontSize="16" TextChanged="SearchTextBox_TextChanged"/>
                     <CheckBox Name="IsArhiveSearchCheckBox"  Content="Поиск в архиве" Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center" />
                 </StackPanel>
                 <DataGrid Name="MainGrid"
@@ -135,27 +135,31 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=FirstLanguage}" Header="Основной язык">
+                        <DataGridTextColumn Binding="{Binding Path=FirstLanguageName}" Header="Основной язык">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>
                                     <Setter Property="TextBlock.TextAlignment" Value="Center" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=Invalidity}" Header="Инвалид">
-                            <DataGridTextColumn.ElementStyle>
+                        <DataGridCheckBoxColumn Binding="{Binding Path=Invalidity}" Header="Инвалид" IsReadOnly="True">
+                            <DataGridCheckBoxColumn.ElementStyle>
                                 <Style>
-                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                    <Setter Property="CheckBox.VerticalAlignment" Value="Center"/>
+                                    <Setter Property="CheckBox.HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="CheckBox.IsEnabled" Value="False"/>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Path=Inclusive}" Header="ВШУ">
-                            <DataGridTextColumn.ElementStyle>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                        </DataGridCheckBoxColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding Path=Inclusive}" Header="ВШУ" IsReadOnly="True">
+                            <DataGridCheckBoxColumn.ElementStyle>
                                 <Style>
-                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                    <Setter Property="CheckBox.VerticalAlignment" Value="Center"/>
+                                    <Setter Property="CheckBox.HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="CheckBox.IsEnabled" Value="False"/>
                                 </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                        </DataGridCheckBoxColumn>
                         <DataGridTextColumn Binding="{Binding Path=Come}" Header="Прибыл">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>

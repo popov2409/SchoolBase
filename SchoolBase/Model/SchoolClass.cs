@@ -53,7 +53,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников
         /// </summary>
-        public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.School == this.Id).ToList();
+        //public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.School == this.Id).ToList();
 
     }
 
@@ -100,6 +100,9 @@ namespace SchoolBase.Model
         /// Наименование статуса
         /// </summary>
         public string Value { get; set; }
+
+        public string FullValue => Value.Length > 0 ? $"{Number}-{Value}" : Number.ToString();
+        
 
         /// <summary>
         /// Класс

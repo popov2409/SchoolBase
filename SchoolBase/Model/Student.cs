@@ -18,9 +18,9 @@ namespace SchoolBase.Model
         public string FullName { get; set; }
 
         /// <summary>
-        /// Класс в котором учится
+        /// Группа класса в котором учится
         /// </summary>
-        public Guid School { get; set; }
+        public Guid GroupGuid { get; set; }
 
         /// <summary>
         /// Дата рождения
@@ -53,9 +53,23 @@ namespace SchoolBase.Model
         public Guid FirstLanguage { get; set; }
 
         /// <summary>
+        /// Получить название языка
+        /// </summary>
+        public string FirstLanguageName => DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == FirstLanguage) != null
+            ? DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == FirstLanguage)?.Value
+            : "";
+
+        /// <summary>
         /// Второй иностранный язык
         /// </summary>
         public Guid SecondLanguage { get; set; }
+
+        /// <summary>
+        /// Получить название языка
+        /// </summary>
+        public string SecondLanguageName => DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == SecondLanguage) != null
+            ? DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == SecondLanguage)?.Value
+            : "";
 
         /// <summary>
         /// Откуда прибыл номер#область#город
@@ -75,7 +89,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Приказ о зачислении дата
         /// </summary>
-        public DateTime EnrollmentDecree { get; set; }
+        public string EnrollmentDecree { get; set; }
 
         /// <summary>
         /// Приказ об отчислении дата

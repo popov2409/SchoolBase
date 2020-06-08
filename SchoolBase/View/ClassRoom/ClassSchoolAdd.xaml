@@ -47,16 +47,13 @@
             <ListBox Name="GroupListBox" Height="100" HorizontalAlignment="Stretch" Margin="20,5,20,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Number}" FontSize="14"/>
-                            <TextBlock Text="-" FontSize="14"/>
-                            <TextBlock Text="{Binding Path=Value}" FontSize="14"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding Path=FullValue}" FontSize="14"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
                 
-                    <Grid Margin="20,5,20,0" Height="35">
+                   
+            <Grid Margin="20,5,20,0" Height="35">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>

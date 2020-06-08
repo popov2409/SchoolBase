@@ -44,6 +44,7 @@ namespace SchoolBase.View.ClassRoom
             {
                 StatusComboBox.Items.Add($"   {val}");
             }
+
         }
 
         private Model.CategorySchoolClass cat;

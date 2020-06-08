@@ -90,6 +90,9 @@ namespace SchoolBase.View.ClassRoom
                 MessageBox.Show("Не указана категория или статус класса!");
                 return;
             }
+
+            DbProxy.SchoolDb.GroupSchoolClasses.AddRange(GroupSchoolClasses);
+
             SchoolClass schoolClass=new SchoolClass()
             {
                 Id = Id,
@@ -98,6 +101,9 @@ namespace SchoolBase.View.ClassRoom
                 Number = int.Parse(NumComboBox.Text),
                 Character = CharTextBlock.Text,
             };
+
+
+
 
             if (TeacherComboBox.SelectedIndex < 0)
             {
