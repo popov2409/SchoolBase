@@ -19,13 +19,17 @@
             <MenuItem Header="Администрирование">
                 <MenuItem Header="Списки" >
                     <MenuItem Header="Изучаемые языки" Name="LanguageMenuItem" Click="LanguageMenuItem_OnClick"/>
-                    <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
-                    <MenuItem Header="Классы" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
-                    <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+                    
                     <MenuItem Header="Учителя" Name="TeacherMenuItem" Click="TeacherMenuItem_OnClick"></MenuItem>
                     <MenuItem Header="Четверти" Name="QuarterMenuItem" Click="QuarterMenuItem_OnClick"/>
                 </MenuItem>
                 <MenuItem Header="Добавить школьников" Name="AddStudentMenuItem" Click="AddStudentMenuItem_OnClick"/>
+            </MenuItem>
+            <MenuItem Header="Классы">
+                <MenuItem Header="Список классов" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
+                <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
+                <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+
             </MenuItem>
             <MenuItem Header="Отчеты">
                

@@ -52,7 +52,12 @@ namespace SchoolBase.View.ClassRoom
         void InitializeListBox()
         {
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character).OrderBy(c => c.Number);
+            if ((cat == null) && (st == null))
+            {
+                MainListBox.ItemsSource =
+                    DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character).OrderBy(c => c.Number);
+            }
+
             if ((cat == null) && (st != null))
             {
                 MainListBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c => c.Character)
@@ -75,11 +80,13 @@ namespace SchoolBase.View.ClassRoom
             if (CategoryComboBox.SelectedIndex == 0)
             {
                 cat = null;
-                return;
             }
-
-            cat =
-                DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Value.Contains(CategoryComboBox.SelectedValue.ToString().TrimStart()));
+            else
+            {
+                cat =
+                    DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Value.Contains(CategoryComboBox.SelectedValue.ToString().TrimStart()));
+            }
+            
             InitializeListBox();
         }
 
@@ -88,22 +95,30 @@ namespace SchoolBase.View.ClassRoom
             if (StatusComboBox.SelectedIndex == 0)
             {
                 st = null;
-                return;
             }
-            st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.SelectedValue.ToString().TrimStart()));
+            else
+            {
+                st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.SelectedValue.ToString().TrimStart()));
+            }
             InitializeListBox();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (cat == null || st == null)
+            /*if (cat == null || st == null)
             {
                 MessageBox.Show("Не выбнана категория или статус класса!");
                 return;
+            }*/
+
+
+            SchoolClass sc= new ClassSchoolAdd(Guid.NewGuid()).AddClass();
+            if (sc != null)
+            {
+                InitializeListBox();
             }
 
-            new ClassSchoolAdd(cat, st).ShowDialog();
-            InitializeListBox();
+            
         }
     }
 }

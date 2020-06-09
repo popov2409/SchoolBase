@@ -19,28 +19,33 @@ namespace SchoolBase.View.ClassRoom
     /// </summary>
     public partial class ClassSchoolAdd : Window
     {
-        private Model.CategorySchoolClass category;
-        private StatusSchoolClass status;
         private Guid Id;
+        private SchoolClass SchoolClass;
+        private bool EditMode = false;
 
         private List<GroupSchoolClass> GroupSchoolClasses;
-        public ClassSchoolAdd(Model.CategorySchoolClass category, StatusSchoolClass status)
+        public ClassSchoolAdd(Guid classId)
         {
-            this.category = category;
-            this.status = status;
             InitializeComponent();
-            Id=Guid.NewGuid();
+            Id = classId;
             GroupSchoolClasses = new List<GroupSchoolClass>();
             NumGroupTextBox.Text = (GroupSchoolClasses.Count + 1).ToString();
             InitializeCombobox();
+            SchoolClass = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c=>c.Id==classId);
+            EditMode = SchoolClass != null;
+            if(EditMode)SetFields();
+        }
+
+        void SetFields()
+        {
+
         }
 
         void InitializeCombobox()
         {
             CategoryComboBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
             StatusComboBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses.OrderBy(c => c.Value);
-            CategoryComboBox.SelectedItem = category;
-            StatusComboBox.SelectedItem = status;
+          
             for (int i = 0; i < 11; i++)
             {
                 NumComboBox.Items.Add(i + 1);
@@ -79,49 +84,62 @@ namespace SchoolBase.View.ClassRoom
 
         private void SaveButtom_OnClick(object sender, RoutedEventArgs e)
         {
-            if (GroupSchoolClasses.Count < 1)
+            if (!EditMode)
             {
-                MessageBox.Show("Нет групп в классе!");
-                return;
+                if (GroupSchoolClasses.Count < 1)
+                {
+                    MessageBox.Show("Нет групп в классе!");
+                    return;
+                }
+
+                if (CategoryComboBox.SelectedIndex < 0 || StatusComboBox.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Не указана категория или статус класса!");
+                    return;
+                }
+
+                DbProxy.SchoolDb.GroupSchoolClasses.AddRange(GroupSchoolClasses);
+
+                SchoolClass = new SchoolClass()
+                {
+                    Id = Id,
+                    Category = ((Model.CategorySchoolClass) CategoryComboBox.SelectedItem).Id,
+                    Status = ((StatusSchoolClass) StatusComboBox.SelectedItem).Id,
+                    Number = int.Parse(NumComboBox.Text),
+                    Character = CharTextBlock.Text,
+                };
+
+
+
+
+                if (TeacherComboBox.SelectedIndex < 0)
+                {
+                    Model.Teacher teacher = new Model.Teacher() {Id = Guid.NewGuid(), FullName = TeacherComboBox.Text};
+                    DbProxy.SchoolDb.Teachers.Add(teacher);
+                    SchoolClass.Teacher = teacher.Id;
+                }
+                else
+                {
+                    SchoolClass.Teacher =
+                        DbProxy.SchoolDb.Teachers.First(c => c.FullName.Equals(TeacherComboBox.Text)).Id;
+                }
+                DbProxy.SchoolDb.SchoolClasses.Add(SchoolClass);
             }
 
-            if (CategoryComboBox.SelectedIndex < 0 || StatusComboBox.SelectedIndex < 0)
-            {
-                MessageBox.Show("Не указана категория или статус класса!");
-                return;
-            }
-
-            DbProxy.SchoolDb.GroupSchoolClasses.AddRange(GroupSchoolClasses);
-
-            SchoolClass schoolClass=new SchoolClass()
-            {
-                Id = Id,
-                Category = (CategoryComboBox.SelectedItem as Model.CategorySchoolClass).Id,
-                Status = (StatusComboBox.SelectedItem as StatusSchoolClass).Id,
-                Number = int.Parse(NumComboBox.Text),
-                Character = CharTextBlock.Text,
-            };
-
-
-
-
-            if (TeacherComboBox.SelectedIndex < 0)
-            {
-                Model.Teacher teacher = new Model.Teacher() {Id = Guid.NewGuid(), FullName = TeacherComboBox.Text};
-                DbProxy.SchoolDb.Teachers.Add(teacher);
-                schoolClass.Teacher = teacher.Id;
-            }
-            else
-            {
-                schoolClass.Teacher = DbProxy.SchoolDb.Teachers.First(c => c.FullName.Equals(TeacherComboBox.Text)).Id;
-            }
-            DbProxy.SchoolDb.SchoolClasses.Add(schoolClass);
             this.Close();
         }
 
         private void CancelButtom_OnClick(object sender, RoutedEventArgs e)
         {
+            SchoolClass = null;
             this.Close();
+        }
+
+
+        public Model.SchoolClass AddClass()
+        {
+            this.ShowDialog();
+            return SchoolClass;
         }
     }
 }

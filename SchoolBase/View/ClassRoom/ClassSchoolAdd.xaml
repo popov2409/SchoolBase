@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.ClassRoom"
         mc:Ignorable="d"
-        Title="Класс" Height="300" Width="650" FontSize="16" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
-    <Grid>
+        Title="Класс" Height="280" Width="650" FontSize="16" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Margin="0,5,0,0">
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="20,5,0,0">
                 <TextBlock Text="Категория класса:" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,10,0"/>
