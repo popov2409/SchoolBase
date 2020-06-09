@@ -43,7 +43,16 @@ namespace SchoolBase.Model
         /// <summary>
         /// Целиковое значение класса и руководитель
         /// </summary>
-        public string FullValueTeacher => Teacher != null ? $"{FullValue} К/Р - {DbProxy.SchoolDb.Teachers.FirstOrDefault(c=>c.Id==Teacher).FullName}" : FullValue;
+        public string FullValueTeacher
+        {
+            get
+            {
+                Teacher teacher = DbProxy.SchoolDb.Teachers.FirstOrDefault(c => c.Id == Teacher);
+
+                return teacher != null ? $"{FullValue} К/Р - {teacher.FullName}"
+                    : FullValue;
+            }
+        }
 
         /// <summary>
         /// Классный руководитель
