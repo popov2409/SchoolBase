@@ -30,8 +30,8 @@ namespace SchoolBase
             InitializeComponent();
             DbProxy.LoadData();
             InitializeTreeView();
-            //new AddStudentView(null).ShowDialog();
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c=>c.FullName);
+            new LanguageListView().ShowDialog();
         }
 
         void InitializeTreeView()
