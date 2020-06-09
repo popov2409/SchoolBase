@@ -53,7 +53,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников
         /// </summary>
-        //public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.School == this.Id).ToList();
+        public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.ClassRoom == this.Id).ToList();
 
     }
 

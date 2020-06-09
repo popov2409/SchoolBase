@@ -31,7 +31,7 @@ namespace SchoolBase
             DbProxy.LoadData();
             InitializeTreeView();
             //new AddStudentView(null).ShowDialog();
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students;
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c=>c.FullName);
         }
 
         void InitializeTreeView()
@@ -44,12 +44,42 @@ namespace SchoolBase
                 foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).OrderBy(c=>c.Character).OrderBy(c=>c.Number).ToList())
                 {
                     TreeViewItem inItem=new TreeViewItem(){Header = schoolClass.FullValue};
-                    inItem.PreviewMouseDoubleClick += InItem_PreviewMouseDoubleClick;
+                    inItem.PreviewMouseUp += InItem_PreviewMouseUp;
+
+                    List<GroupSchoolClass> groupSchoolClasses =
+                        DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == schoolClass.Id).ToList();
+                    foreach (GroupSchoolClass groupSchoolClass in groupSchoolClasses)
+                    {
+                        TreeViewItem ininItem = new TreeViewItem() { Header = groupSchoolClass.FullValue };
+                        ininItem.PreviewMouseUp += IninItem_PreviewMouseUp;
+                        inItem.Items.Add(ininItem);
+                    }
+
                     item.Items.Add(inItem);
                 }
 
                 MainTreeView.Items.Add(item);
             }
+        }
+
+        private void InItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c =>
+                c.FullValue == ((TreeViewItem)sender).Header.ToString());
+            MainGrid.ItemsSource = sc.Students.OrderBy(c => c.FullName);
+        }
+
+        private void IninItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SchoolClass sc = DbProxy.SchoolDb.SchoolClasses.First(c =>
+                c.FullValue == ((TreeViewItem) ((TreeViewItem) sender).Parent).Header.ToString());
+            GroupSchoolClass gsc =
+                DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c =>
+                    c.FullValue == ((TreeViewItem) sender).Header.ToString() && c.SchoolClass == sc.Id);
+
+            MainGrid.ItemsSource = gsc != null
+                ? DbProxy.SchoolDb.Students.Where(c => c.GroupGuid == gsc.Id&&c.ClassRoom==sc.Id).OrderBy(c => c.FullName)
+                : null;
         }
 
         /// <summary>
@@ -62,15 +92,7 @@ namespace SchoolBase
             //throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Клик по классу
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InItem_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -119,11 +141,19 @@ namespace SchoolBase
             if (MainGrid.SelectedItem != null)
             {
                 new AddStudentView(MainGrid.SelectedItem as Student).ShowDialog();
+                MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
+
             }
             else
             {
                 MessageBox.Show("Выберите школьника!");
             }
+        }
+
+        private void AddStudentMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new AddStudentView(null).ShowDialog();
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
         }
     }
 }

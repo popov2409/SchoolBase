@@ -18,6 +18,11 @@ namespace SchoolBase.Model
         public string FullName { get; set; }
 
         /// <summary>
+        /// Класс
+        /// </summary>
+        public Guid ClassRoom { get; set; }
+        
+        /// <summary>
         /// Группа класса в котором учится
         /// </summary>
         public Guid GroupGuid { get; set; }
@@ -120,6 +125,18 @@ namespace SchoolBase.Model
         /// Условно переведен
         /// </summary>
         public bool ProbationTransferred { get; set; }
+
+        public string ClassAndGroupName {
+            get
+            {
+               SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassRoom);
+               GroupSchoolClass gsc= DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupGuid);
+               string res = "";
+               res += sc != null ? sc.FullValue : "";
+               res += gsc != null ? $"({gsc.FullValue})" : "";
+               return res;
+            }
+        }
     }
 
     public class Teacher

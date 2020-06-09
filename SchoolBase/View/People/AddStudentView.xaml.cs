@@ -54,12 +54,12 @@ namespace SchoolBase.View.Student
             //дата поступления в школу
             if (l_student.AvailableDate.Length > 0)
                 AvailableDate.SelectedDate = DateTime.Parse(l_student.AvailableDate);
-
+            //Дата убытия
+            if (l_student.DismissalDate.Length > 0)  DismissalDate.SelectedDate = DateTime.Parse(l_student.DismissalDate);
             //Откуда прибыл
             FromSchoolNumberTextBox.Text= l_student.FromSchool.Split('#')[0];
             FromRegionComboBox.Text= l_student.FromSchool.Split('#')[1];
             FromSityComboBox.Text= l_student.FromSchool.Split('#')[2];
-
             //Приказ о зачислении
             if (l_student.EnrollmentDecree.Length > 0)
                 EnrollmentDecreeDate.SelectedDate = DateTime.Parse(l_student.EnrollmentDecree);
@@ -68,23 +68,15 @@ namespace SchoolBase.View.Student
                 DismissalDecreeDate.SelectedDate = DateTime.Parse(l_student.DismissalDecree);
             //Переведен условно
             ConditionallyCheckBox.IsChecked = l_student.ProbationTransferred;
-
-            //Дата убытия
-            //DismissalDate.SelectedDate = DateTime.Parse(l_student.DismissalDate);
-
-            /*
-            //Класс
-            l_student.GroupGuid = GroupSchoolComboBox.SelectedIndex < 0 ? new Guid() : ((GroupSchoolClass)GroupSchoolComboBox.SelectedItem).Id;
-           
-            
-            
-            
             //Основной язык
-            l_student.FirstLanguage = ((Language)FirstLanguageComboBox.SelectedItem)?.Id ?? new Guid();
+            Language fLang = DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == l_student.FirstLanguage);
+            if (fLang != null) FirstLanguageComboBox.SelectedItem = fLang;
             //Второй язык
-            l_student.SecondLanguage = ((Language)SecondLanguageComboBox.SelectedItem)?.Id ?? new Guid();*/
-
-
+            fLang = DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == l_student.SecondLanguage);
+            if (fLang != null) SecondLanguageComboBox.SelectedItem = fLang;
+            //Класс и группа
+            GroupComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassRoom);
+            GroupSchoolComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupGuid);
 
 
         }
@@ -141,7 +133,7 @@ namespace SchoolBase.View.Student
             }
             else
             {
-                
+                SetDataStudent(DbProxy.SchoolDb.Students.First(c => c.Id == student.Id));
             }
 
             this.Close();
@@ -162,6 +154,8 @@ namespace SchoolBase.View.Student
             l_student.Birthdate =
                 Birthdate.SelectedDate != null ? Birthdate.SelectedDate.Value.ToShortDateString() : "";
             //Класс
+            l_student.ClassRoom = GroupComboBox.SelectedIndex < 0 ? new Guid() : ((SchoolClass)GroupComboBox.SelectedItem).Id;
+            //Группа в классе
             l_student.GroupGuid = GroupSchoolComboBox.SelectedIndex<0?new Guid(): ((GroupSchoolClass)GroupSchoolComboBox.SelectedItem).Id;
             //Пол
             l_student.Sex = SexComboBox.Text;

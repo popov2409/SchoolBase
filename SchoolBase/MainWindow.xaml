@@ -25,7 +25,7 @@
                     <MenuItem Header="Учителя" Name="TeacherMenuItem" Click="TeacherMenuItem_OnClick"></MenuItem>
                     <MenuItem Header="Четверти" Name="QuarterMenuItem" Click="QuarterMenuItem_OnClick"/>
                 </MenuItem>
-                <MenuItem Header="Добавить школьников" />
+                <MenuItem Header="Добавить школьников" Name="AddStudentMenuItem" Click="AddStudentMenuItem_OnClick"/>
             </MenuItem>
             <MenuItem Header="Отчеты">
                
@@ -107,7 +107,7 @@
                         <Style TargetType="DataGridRow">
                             <Setter Property="ToolTip">
                                 <Setter.Value>
-                                    <TextBlock Text="{Binding Path=Student.Group.FullValue}" />
+                                    <TextBlock Text="{Binding Path=ClassAndGroupName}" />
                                 </Setter.Value>
                             </Setter>
                         </Style>
