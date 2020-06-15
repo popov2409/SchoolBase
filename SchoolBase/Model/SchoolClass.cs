@@ -78,6 +78,11 @@ namespace SchoolBase.Model
         /// Наименование категории
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Для корректной организации порядка списка
+        /// </summary>
+        public int Number { get; set; }
     }
 
     /// <summary>

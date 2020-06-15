@@ -34,10 +34,13 @@ namespace SchoolBase
            // new TeacherListView().ShowDialog();
         }
 
+        /// <summary>
+        /// Собираем дерево классов
+        /// </summary>
         void InitializeTreeView()
         {
             MainTreeView.Items.Clear();
-            foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses)
+            foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number))
             {
                 TreeViewItem item=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value};
                 item.PreviewMouseUp += Item_PreviewMouseUp;

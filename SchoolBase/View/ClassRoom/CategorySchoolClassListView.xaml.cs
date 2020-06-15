@@ -24,7 +24,7 @@ namespace SchoolBase.View.CategorySchoolClass
         {
             InitializeComponent();
             MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number);
         }
 
         private void MainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,9 +56,12 @@ namespace SchoolBase.View.CategorySchoolClass
         private void AddCategoryButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (CategoryNameTextBlock.Text.Replace(" ","").Length==0) return;
-            DbProxy.SchoolDb.CategorySchoolClasses.Add(new Model.CategorySchoolClass(){Id = Guid.NewGuid(),Value = CategoryNameTextBlock.Text});
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            DbProxy.SchoolDb.CategorySchoolClasses.Add(new Model.CategorySchoolClass()
+            {
+                Id = Guid.NewGuid(), Value = CategoryNameTextBlock.Text,
+                Number = DbProxy.SchoolDb.CategorySchoolClasses.Select(c=>c.Number).Max()+1
+            });
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number);
             
             CategoryNameTextBlock.Text = "";
         }
@@ -67,8 +70,31 @@ namespace SchoolBase.View.CategorySchoolClass
         {
             if (e.Key != Key.Delete) return;
             DbProxy.SchoolDb.CategorySchoolClasses.Remove(MainListBox.SelectedItem as Model.CategorySchoolClass);
-            MainListBox.ItemsSource = null;
-            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number);
+        }
+
+        private void UpMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Model.CategorySchoolClass csc=MainListBox.SelectedItem as Model.CategorySchoolClass;
+            if(csc.Number==1) return;
+            DbProxy.SchoolDb.CategorySchoolClasses.First(c=>c.Number==csc.Number-1).Number++;
+            csc.Number--;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c => c.Number);
+        }
+
+        private void DeleteMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            DbProxy.SchoolDb.CategorySchoolClasses.Remove(MainListBox.SelectedItem as Model.CategorySchoolClass);
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c => c.Number);
+        }
+
+        private void DownMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Model.CategorySchoolClass csc = MainListBox.SelectedItem as Model.CategorySchoolClass;
+            if (csc.Number == DbProxy.SchoolDb.CategorySchoolClasses.Count) return;
+            DbProxy.SchoolDb.CategorySchoolClasses.First(c => c.Number == csc.Number + 1).Number--;
+            csc.Number++;
+            MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c => c.Number);
         }
     }
 }

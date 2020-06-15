@@ -135,7 +135,6 @@ namespace SchoolBase.View.ClassRoom
             this.Close();
         }
 
-
         public Model.SchoolClass AddClass()
         {
             this.ShowDialog();

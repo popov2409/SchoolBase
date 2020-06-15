@@ -25,9 +25,10 @@
                     <TextBlock Text="{Binding Path=Value}">
                         <TextBlock.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Поднять" Name="UpMenuItem"/>
-                                <MenuItem Header="Опустить" Name="DownMenuItem"/>
-                                <MenuItem Header="Удалить" Name="DeleteMenuItem"/>
+                                <MenuItem Header="Переименовать" Name="RenameMenuItem" />
+                                <MenuItem Header="Поднять" Name="UpMenuItem" Click="UpMenuItem_OnClick"/>
+                                <MenuItem Header="Опустить" Name="DownMenuItem" Click="DownMenuItem_OnClick"/>
+                                <MenuItem Header="Удалить" Name="DeleteMenuItem" Click="DeleteMenuItem_OnClick"/>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>
