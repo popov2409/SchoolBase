@@ -133,7 +133,7 @@ namespace SchoolBase
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c=>c.FullName.Contains(SearchTextBox.Text));
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c=>c.FullName.ToLower().Contains(SearchTextBox.Text.ToLower()));
         }
 
         private void EditStudentButton_OnClick(object sender, RoutedEventArgs e)
