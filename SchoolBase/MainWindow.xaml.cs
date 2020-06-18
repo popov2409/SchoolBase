@@ -15,6 +15,7 @@ using SchoolBase.Model;
 using SchoolBase.View.CategorySchoolClass;
 using SchoolBase.View.ClassRoom;
 using SchoolBase.View.Quarter;
+using SchoolBase.View.Report;
 using SchoolBase.View.Student;
 using SchoolBase.View.Teacher;
 
@@ -186,7 +187,7 @@ namespace SchoolBase
 
         private void ClassReportMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            Reports.PrintClassReport(DbProxy.SchoolDb.SchoolClasses[0].Id);
+            new ClassReportView().ShowDialog();
         }
     }
 }

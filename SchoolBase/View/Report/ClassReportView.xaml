@@ -1,0 +1,33 @@
+﻿<Window x:Class="SchoolBase.View.Report.ClassReportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolBase.View.Report"
+        mc:Ignorable="d"
+        Title="ClassReportView" Height="165" Width="220" FontSize="16" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="5">
+            <TextBlock Text="Категория"/>
+            <ComboBox Name="CategoryComboBox" SelectionChanged="CategoryComboBox_OnSelectionChanged" FontSize="16">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="16" Text="{Binding Path=Value}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Класс"/>
+            <ComboBox Name="ClassComboBox" FontSize="16">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="16" Text="{Binding Path=FullValue}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Name="CreateReportButton"  FontSize="16" Content="Печать" Margin="0,5,0,0" Click="CreateReportButton_OnClick"/>
+            <Button Name="ExitButton" FontSize="16"  Content="Выход" Margin="0,5,0,0" Click="ExitButton_OnClick"/>
+
+        </StackPanel>
+        
+    </Grid>
+</Window>
