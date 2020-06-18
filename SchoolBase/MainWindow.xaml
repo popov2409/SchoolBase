@@ -32,7 +32,7 @@
 
             </MenuItem>
             <MenuItem Header="Отчеты">
-               
+               <MenuItem Header="Класс" Name="ClassReportMenuItem" Click="ClassReportMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
@@ -74,7 +74,8 @@
                     </Button>
                     <Button Name="DeleteStudentButton"
                             Width="30"
-                            Margin="1">
+                            Margin="1"
+                            Click="DeleteStudentButton_OnClick">
                         <StackPanel>
                             <Image Source="Icons/Delete.png" />
                         </StackPanel>

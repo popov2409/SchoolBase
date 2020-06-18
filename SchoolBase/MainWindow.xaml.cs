@@ -158,5 +158,16 @@ namespace SchoolBase
             new AddStudentView(null).ShowDialog();
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
         }
+
+        private void DeleteStudentButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DbProxy.SchoolDb.Students.Remove(MainGrid.SelectedItem as Student);
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
+        }
+
+        private void ClassReportMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reports.PrintClassReport(DbProxy.SchoolDb.SchoolClasses[0].Id);
+        }
     }
 }
