@@ -20,12 +20,14 @@ namespace SchoolBase.Model
         /// <summary>
         /// Класс
         /// </summary>
-        public Guid ClassRoom { get; set; }
+        public Guid ClassId { get; set; }
         
         /// <summary>
         /// Группа класса в котором учится
         /// </summary>
-        public Guid GroupGuid { get; set; }
+        public Guid GroupId { get; set; }
+
+        public Guid CategoryId { get; set; }
 
         /// <summary>
         /// Дата рождения
@@ -129,8 +131,8 @@ namespace SchoolBase.Model
         public string ClassAndGroupName {
             get
             {
-               SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassRoom);
-               GroupSchoolClass gsc= DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupGuid);
+               SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
+               GroupSchoolClass gsc= DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupId);
                string res = "";
                res += sc != null ? sc.FullValue : "";
                res += gsc != null ? $"({gsc.FullValue})" : "";

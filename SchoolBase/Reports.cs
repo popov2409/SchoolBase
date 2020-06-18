@@ -55,13 +55,13 @@ namespace SchoolBase
 
                 Word.Table tlb = doc.Tables[1];
                 int i = 2;
-                foreach (Student student in DbProxy.SchoolDb.Students.Where(c => c.ClassRoom == classId).OrderBy(c => c.FullName))
+                foreach (Student student in DbProxy.SchoolDb.Students.Where(c => c.ClassId == classId).OrderBy(c => c.FullName))
                 {
                     tlb.Rows[i].Cells[2].Range.InsertAfter(student.FullName);
                     tlb.Rows[i].Cells[3].Range.InsertAfter(student.Sex.Length>0?student.Sex:"");
                     tlb.Rows[i].Cells[4].Range.InsertAfter(student.Birthdate.Length > 2 ? student.Birthdate : "");
                     GroupSchoolClass gr =
-                        DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == student.GroupGuid);
+                        DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == student.GroupId);
                     tlb.Rows[i].Cells[5].Range.InsertAfter(gr!=null ? gr.Number.ToString() : "");
                     tlb.Rows[i].Cells[6].Range.InsertAfter(student.AvailableDate.Length>2 ? student.AvailableDate : "");
                     tlb.Rows[i].Cells[7].Range.InsertAfter(student.DismissalDate.Length > 2 ? student.DismissalDate : "");

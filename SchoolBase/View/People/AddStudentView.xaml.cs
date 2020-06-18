@@ -75,34 +75,34 @@ namespace SchoolBase.View.Student
             fLang = DbProxy.SchoolDb.Languages.FirstOrDefault(c => c.Id == l_student.SecondLanguage);
             if (fLang != null) SecondLanguageComboBox.SelectedItem = fLang;
             //Класс и группа
-            GroupComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassRoom);
-            GroupSchoolComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupGuid);
+            ClassComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassId);
+            GroupComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupId);
 
 
         }
 
         void InitializeBoxes()
         {
-            GroupComboBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses;
+            ClassComboBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Character).ThenBy(c=>c.Number);
             FirstLanguageComboBox.ItemsSource = DbProxy.SchoolDb.Languages;
             FromSityComboBox.ItemsSource = DbProxy.SchoolDb.Students.Select(c => c.FromSchool.Split('#')[2]).Distinct();
             FromRegionComboBox.ItemsSource= DbProxy.SchoolDb.Students.Select(c => c.FromSchool.Split('#')[1]).Distinct();
         }
 
-        private void GroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GroupSchoolComboBox.ItemsSource = null;
-            GroupSchoolComboBox.ItemsSource = ((SchoolClass) GroupComboBox.SelectedItem).GroupSchoolClasses;
+            GroupComboBox.ItemsSource = null;
+            GroupComboBox.ItemsSource = ((SchoolClass) ClassComboBox.SelectedItem).GroupSchoolClasses;
             CategoryGroupTextBlock.Text =
                 DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c =>
-                    c.Id == ((SchoolClass) GroupComboBox.SelectedItem).Category)
+                    c.Id == ((SchoolClass) ClassComboBox.SelectedItem).Category)
                     ?.Value;
             StatusGroupTextBlock.Text= DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c =>
-                c.Id == ((SchoolClass)GroupComboBox.SelectedItem).Status)
+                c.Id == ((SchoolClass)ClassComboBox.SelectedItem).Status)
                 ?.Value;
 
             TeacherTextBlock.Text= DbProxy.SchoolDb.Teachers.FirstOrDefault(c =>
-                    c.Id == ((SchoolClass)GroupComboBox.SelectedItem).Teacher)
+                    c.Id == ((SchoolClass)ClassComboBox.SelectedItem).Teacher)
                 ?.FullName;
         }
 
@@ -154,9 +154,12 @@ namespace SchoolBase.View.Student
             l_student.Birthdate =
                 Birthdate.SelectedDate != null ? Birthdate.SelectedDate.Value.ToShortDateString() : "";
             //Класс
-            l_student.ClassRoom = GroupComboBox.SelectedIndex < 0 ? new Guid() : ((SchoolClass)GroupComboBox.SelectedItem).Id;
+            SchoolClass sc = ClassComboBox.SelectedIndex < 0 ? null : (SchoolClass) ClassComboBox.SelectedItem;
+            l_student.ClassId = sc?.Id ?? new Guid();
+            //Категория
+            l_student.CategoryId = sc?.Category ?? new Guid(); 
             //Группа в классе
-            l_student.GroupGuid = GroupSchoolComboBox.SelectedIndex<0?new Guid(): ((GroupSchoolClass)GroupSchoolComboBox.SelectedItem).Id;
+            l_student.GroupId = GroupComboBox.SelectedIndex<0?new Guid(): ((GroupSchoolClass)GroupComboBox.SelectedItem).Id;
             //Пол
             l_student.Sex = SexComboBox.Text;
             //дата поступления в школу

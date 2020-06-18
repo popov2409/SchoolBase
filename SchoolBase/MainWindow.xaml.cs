@@ -42,47 +42,56 @@ namespace SchoolBase
             MainTreeView.Items.Clear();
             foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number))
             {
-                TreeViewItem item=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value};
-                item.PreviewMouseUp += Item_PreviewMouseUp;
+                TreeViewItem categoryTreeViewItem=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value,Uid = schoolDbCategorySchoolClass.Id.ToString()};
+                categoryTreeViewItem.Selected += CategoryTreeViewItem_Selected;
                 foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).OrderBy(c=>c.Character).OrderBy(c=>c.Number).ToList())
                 {
-                    TreeViewItem inItem=new TreeViewItem(){Header = schoolClass.FullValue};
-                    inItem.PreviewMouseUp += InItem_PreviewMouseUp;
+                    TreeViewItem classTreeViewItem=new TreeViewItem(){Header = schoolClass.FullValue,Uid = schoolClass.Id.ToString()};
+                    classTreeViewItem.PreviewMouseUp += classTreeViewItem_PreviewMouseUp;
 
                     List<GroupSchoolClass> groupSchoolClasses =
                         DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == schoolClass.Id).ToList();
                     foreach (GroupSchoolClass groupSchoolClass in groupSchoolClasses)
                     {
-                        TreeViewItem ininItem = new TreeViewItem() { Header = groupSchoolClass.FullValue };
-                        ininItem.PreviewMouseUp += IninItem_PreviewMouseUp;
-                        inItem.Items.Add(ininItem);
+                        TreeViewItem grourTreeViewItem = new TreeViewItem() { Header = groupSchoolClass.FullValue,Uid = groupSchoolClass.Id.ToString()};
+                        grourTreeViewItem.PreviewMouseUp += grourTreeViewItem_PreviewMouseUp;
+                        ContextMenu groupContextMenu=new ContextMenu();
+                        MenuItem reportGroupMenuItem=new MenuItem(){Header = "Отчет", Uid = groupSchoolClass.Id.ToString()};
+                        reportGroupMenuItem.Click += reportGroupMenuItem_Click;
+                        groupContextMenu.Items.Add(reportGroupMenuItem);
+                        grourTreeViewItem.ContextMenu = groupContextMenu;
+                        classTreeViewItem.Items.Add(grourTreeViewItem);
                     }
 
-                    item.Items.Add(inItem);
+                    categoryTreeViewItem.Items.Add(classTreeViewItem);
                 }
 
-                MainTreeView.Items.Add(item);
+                MainTreeView.Items.Add(categoryTreeViewItem);
             }
         }
 
-        private void InItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void CategoryTreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c =>
-                c.FullValue == ((TreeViewItem)sender).Header.ToString());
-            MainGrid.ItemsSource = sc.Students.OrderBy(c => c.FullName);
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
         }
 
-        private void IninItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void reportGroupMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            SchoolClass sc = DbProxy.SchoolDb.SchoolClasses.First(c =>
-                c.FullValue == ((TreeViewItem) ((TreeViewItem) sender).Parent).Header.ToString());
-            GroupSchoolClass gsc =
-                DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c =>
-                    c.FullValue == ((TreeViewItem) sender).Header.ToString() && c.SchoolClass == sc.Id);
+            Guid idGroup=Guid.Parse((sender as MenuItem).Uid);
+        }
 
-            MainGrid.ItemsSource = gsc != null
-                ? DbProxy.SchoolDb.Students.Where(c => c.GroupGuid == gsc.Id&&c.ClassRoom==sc.Id).OrderBy(c => c.FullName)
-                : null;
+        private void classTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.ClassId == Guid.Parse(((TreeViewItem) sender).Uid)).OrderBy(c => c.FullName);
+        }
+
+        private void grourTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+           
         }
 
         /// <summary>
@@ -90,9 +99,10 @@ namespace SchoolBase
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Item_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void categoryTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            //throw new NotImplementedException();
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
         }
 
        
