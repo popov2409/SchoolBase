@@ -59,7 +59,7 @@ namespace SchoolBase.View.CategorySchoolClass
             DbProxy.SchoolDb.CategorySchoolClasses.Add(new Model.CategorySchoolClass()
             {
                 Id = Guid.NewGuid(), Value = CategoryNameTextBlock.Text,
-                Number = DbProxy.SchoolDb.CategorySchoolClasses.Select(c=>c.Number).Max()+1
+                Number = DbProxy.SchoolDb.CategorySchoolClasses.Count==0?1:DbProxy.SchoolDb.CategorySchoolClasses.Select(c=>c.Number).Max()+1
             });
             MainListBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number);
             

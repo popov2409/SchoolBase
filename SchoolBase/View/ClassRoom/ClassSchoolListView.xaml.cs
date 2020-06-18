@@ -35,7 +35,7 @@ namespace SchoolBase.View.ClassRoom
             StatusComboBox.Items.Add("Все");
             CategoryComboBox.SelectedIndex = 0;
             StatusComboBox.SelectedIndex = 0;
-            foreach (string val in DbProxy.SchoolDb.CategorySchoolClasses.Select(c => c.Value))
+            foreach (string val in DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number).Select(c => c.Value))
             {
                 CategoryComboBox.Items.Add($"   {val}");
             }

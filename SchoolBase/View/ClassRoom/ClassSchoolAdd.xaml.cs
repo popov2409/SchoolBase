@@ -43,7 +43,7 @@ namespace SchoolBase.View.ClassRoom
 
         void InitializeCombobox()
         {
-            CategoryComboBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses;
+            CategoryComboBox.ItemsSource = DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c => c.Number);
             StatusComboBox.ItemsSource = DbProxy.SchoolDb.StatusSchoolClasses.OrderBy(c => c.Value);
           
             for (int i = 0; i < 11; i++)
@@ -86,12 +86,6 @@ namespace SchoolBase.View.ClassRoom
         {
             if (!EditMode)
             {
-                if (GroupSchoolClasses.Count < 1)
-                {
-                    MessageBox.Show("Нет групп в классе!");
-                    return;
-                }
-
                 if (CategoryComboBox.SelectedIndex < 0 || StatusComboBox.SelectedIndex < 0)
                 {
                     MessageBox.Show("Не указана категория или статус класса!");

@@ -43,18 +43,23 @@ namespace SchoolBase
             foreach (CategorySchoolClass schoolDbCategorySchoolClass in DbProxy.SchoolDb.CategorySchoolClasses.OrderBy(c=>c.Number))
             {
                 TreeViewItem categoryTreeViewItem=new TreeViewItem(){Header = schoolDbCategorySchoolClass.Value,Uid = schoolDbCategorySchoolClass.Id.ToString()};
-                categoryTreeViewItem.Selected += CategoryTreeViewItem_Selected;
+                categoryTreeViewItem.PreviewMouseUp += CategoryTreeViewItem_PreviewMouseUp; ;
                 foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==schoolDbCategorySchoolClass.Id).OrderBy(c=>c.Character).OrderBy(c=>c.Number).ToList())
                 {
                     TreeViewItem classTreeViewItem=new TreeViewItem(){Header = schoolClass.FullValue,Uid = schoolClass.Id.ToString()};
-                    classTreeViewItem.PreviewMouseUp += classTreeViewItem_PreviewMouseUp;
+                    classTreeViewItem.PreviewMouseUp += ClassTreeViewItem_PreviewMouseUp; ;
+                    ContextMenu classContextMenu=new ContextMenu();
+                    MenuItem reportClassMenuItem=new MenuItem(){ Header = "Отчет", Uid = Uid = schoolClass.Id.ToString()};
+                    reportClassMenuItem.Click += ReportClassMenuItem_Click;
+                    classContextMenu.Items.Add(reportClassMenuItem);
+                    classTreeViewItem.ContextMenu = classContextMenu;
 
                     List<GroupSchoolClass> groupSchoolClasses =
                         DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == schoolClass.Id).ToList();
                     foreach (GroupSchoolClass groupSchoolClass in groupSchoolClasses)
                     {
                         TreeViewItem grourTreeViewItem = new TreeViewItem() { Header = groupSchoolClass.FullValue,Uid = groupSchoolClass.Id.ToString()};
-                        grourTreeViewItem.PreviewMouseUp += grourTreeViewItem_PreviewMouseUp;
+                        grourTreeViewItem.PreviewMouseUp += GrourTreeViewItem_PreviewMouseUp;
                         ContextMenu groupContextMenu=new ContextMenu();
                         MenuItem reportGroupMenuItem=new MenuItem(){Header = "Отчет", Uid = groupSchoolClass.Id.ToString()};
                         reportGroupMenuItem.Click += reportGroupMenuItem_Click;
@@ -70,7 +75,24 @@ namespace SchoolBase
             }
         }
 
-        private void CategoryTreeViewItem_Selected(object sender, RoutedEventArgs e)
+        private void ReportClassMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Reports.PrintClassReport(Guid.Parse(((MenuItem)sender).Uid));
+        }
+
+        private void GrourTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+        }
+
+        private void ClassTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
+                .Where(c => c.ClassId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+        }
+
+        private void CategoryTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students
                 .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
@@ -79,19 +101,6 @@ namespace SchoolBase
         private void reportGroupMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Guid idGroup=Guid.Parse((sender as MenuItem).Uid);
-        }
-
-        private void classTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.ClassId == Guid.Parse(((TreeViewItem) sender).Uid)).OrderBy(c => c.FullName);
-        }
-
-        private void grourTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
-           
         }
 
         /// <summary>
