@@ -101,7 +101,7 @@ namespace SchoolBase
 
         private void reportGroupMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Guid idGroup=Guid.Parse((sender as MenuItem).Uid);
+            Reports.PrintGroupReport(Guid.Parse(((MenuItem) sender).Uid));
         }
 
         /// <summary>
@@ -188,6 +188,12 @@ namespace SchoolBase
         private void ClassReportMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new ClassReportView().ShowDialog();
+        }
+
+        private void GroupReportMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new GroupReportView().ShowDialog();
+
         }
     }
 }

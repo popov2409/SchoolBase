@@ -33,6 +33,7 @@
             </MenuItem>
             <MenuItem Header="Отчеты">
                <MenuItem Header="Класс" Name="ClassReportMenuItem" Click="ClassReportMenuItem_OnClick"/>
+               <MenuItem Header="Группа" Name="GroupReportMenuItem" Click="GroupReportMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">

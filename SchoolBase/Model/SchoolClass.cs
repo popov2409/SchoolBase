@@ -49,7 +49,7 @@ namespace SchoolBase.Model
             {
                 Teacher teacher = DbProxy.SchoolDb.Teachers.FirstOrDefault(c => c.Id == Teacher);
 
-                return teacher != null ? $"{FullValue} К/Р - {teacher.FullName}"
+                return teacher != null &&teacher.FullName.Length>2 ? $"{FullValue} К/Р - {teacher.FullName}"
                     : FullValue;
             }
         }
