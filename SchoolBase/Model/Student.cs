@@ -27,6 +27,9 @@ namespace SchoolBase.Model
         /// </summary>
         public Guid GroupId { get; set; }
 
+        /// <summary>
+        /// Категория класса в школе
+        /// </summary>
         public Guid CategoryId { get; set; }
 
         /// <summary>

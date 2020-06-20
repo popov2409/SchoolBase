@@ -54,7 +54,9 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Button Name="ViewStudentButton"
                             Width="30"
-                            Margin="1">
+                            Margin="1"
+                            Visibility="Collapsed"
+                            >
                         <StackPanel>
                             <Image Source="Icons/search.png" />
                         </StackPanel>
@@ -110,7 +112,8 @@
                           CanUserDeleteRows="False"
                           CanUserReorderColumns="False"
                           FontSize="14"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          LoadingRow="MainGrid_OnLoadingRow">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Setter Property="ToolTip">

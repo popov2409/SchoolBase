@@ -85,19 +85,19 @@ namespace SchoolBase
         private void GrourTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid) && c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c => c.FullName);
         }
 
         private void ClassTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.ClassId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+                .Where(c => c.ClassId == Guid.Parse(((TreeViewItem)sender).Uid) && c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c => c.FullName);
         }
 
         private void CategoryTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
+                .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)&&c.IsArhive==IsArhiveSearchCheckBox.IsChecked).OrderBy(c => c.FullName);
         }
 
         private void reportGroupMenuItem_Click(object sender, RoutedEventArgs e)
@@ -207,6 +207,7 @@ namespace SchoolBase
                     student.ArhivGroup = DbProxy.SchoolDb.SchoolClasses.First(c => c.Id == student.ClassId).FullValue;
                     student.ClassId = new Guid();
                     student.GroupId = new Guid();
+                    student.CategoryId=new Guid();
                     UpdateSourceMainGrid();
                 }
             }
@@ -225,6 +226,11 @@ namespace SchoolBase
         private void IsArhiveSearchCheckBox_Click(object sender, RoutedEventArgs e)
         {
             UpdateSourceMainGrid();
+        }
+
+        private void MainGrid_OnLoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex()+1).ToString();
         }
     }
 }
