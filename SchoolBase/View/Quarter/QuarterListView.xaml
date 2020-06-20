@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.Quarter"
         mc:Ignorable="d"
-        Title="  Учебные четверти" Height="450" Width="600" FontSize="14" PreviewKeyDown="QuarterListView_OnPreviewKeyDown">
+        Title="  Учебные четверти" Height="450" Width="600" FontSize="14" PreviewKeyDown="QuarterListView_OnPreviewKeyDown" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -28,13 +28,13 @@
             <TextBlock Text="Четверть" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
             <TextBlock Text="Начало" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
             <TextBlock Text="Окончание" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3"/>
-            <ComboBox Name="YearComboBox" Grid.Row="1" Grid.Column="0" IsEditable="True" Margin="1" VerticalAlignment="Center" SelectionChanged="YearComboBox_SelectionChanged" />
-            <ComboBox Name="QuarterComboBox" Grid.Row="1" Grid.Column="1" IsEditable="True" Margin="1" VerticalAlignment="Center"/>
+            <ComboBox Name="YearComboBox" FontSize="14" Grid.Row="1" Grid.Column="0" IsEditable="True" Margin="1" VerticalAlignment="Center" SelectionChanged="YearComboBox_SelectionChanged" />
+            <ComboBox Name="QuarterComboBox" FontSize="14" Grid.Row="1" Grid.Column="1" IsEditable="True" Margin="1" VerticalAlignment="Center"/>
             <DatePicker Name="StartDateDatePicker" Grid.Row="1" Grid.Column="2" Margin="1" VerticalAlignment="Center"/>
             <DatePicker Name="EndDateDatePicker" Grid.Row="1" Grid.Column="3" Margin="1" VerticalAlignment="Center"/>
             <Button Name="AddButton" Grid.Column="4" Grid.RowSpan="2" Margin="2" Content="+" Click="AddButton_OnClick" FontSize="35" />
         </Grid>
-        <DataGrid Name="MainGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" FontSize="18" >
+        <DataGrid Name="MainGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" FontSize="14" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Год" Width="70" Binding="{Binding Path=Year}"/>
                 <DataGridTextColumn Header=" Четверть " Binding="{Binding Path=Number}"/>

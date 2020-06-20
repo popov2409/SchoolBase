@@ -58,12 +58,7 @@ namespace SchoolBase.Model
         /// Классный руководитель
         /// </summary>
         public Guid Teacher { get; set; }
-
-        /// <summary>
-        /// Школьники класса //Сделать нормальный метод выборки из коллекции школьников
-        /// </summary>
-        public List<Student> Students => DbProxy.SchoolDb.Students.Where(c => c.ClassId == this.Id).ToList();
-
+        
     }
 
 

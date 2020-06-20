@@ -146,7 +146,7 @@ namespace SchoolBase
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c =>
                 c.FullName.ToLower().Contains(SearchTextBox.Text.ToLower()) &&
-                c.IsArhive == IsArhiveSearchCheckBox.IsChecked);
+                c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c=>c.FullName);
         }
 
         private void EditStudentButton_OnClick(object sender, RoutedEventArgs e)
