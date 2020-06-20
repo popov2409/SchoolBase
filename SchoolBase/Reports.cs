@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -139,5 +140,79 @@ namespace SchoolBase
             }
         }
 
+        public static void PrintContingentReport()
+        {
+            Word._Document doc = null;
+            try
+            {
+                Word._Application app = new Word.Application();
+                string source = System.IO.Directory.GetCurrentDirectory() + "\\dot\\Contingent.dotx";
+                doc = app.Documents.Add(source);
+                doc.Activate();
+                Word.Table tlb = doc.Tables[1];
+                int i = 2;
+                int[] res = new int[8];
+                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Character).ThenBy(c=>c.Number))
+                {
+                    tlb.Rows[i].Cells[1].Range.InsertAfter(schoolClass.FullValue);
+                    res[0]++;
+                    List<Student> students = DbProxy.SchoolDb.Students.Where(c => c.ClassId == schoolClass.Id).ToList();
+                    if (!students.Any())
+                    {
+                        i++;
+                        tlb.Rows.Add();
+                        continue;
+                    }
+                    tlb.Rows[i].Cells[2].Range.InsertAfter(students.Count().ToString());
+                    res[1] += students.Count();
+
+                    int count = students.Count(c => c.Sex.ToLower().Equals("ж"));
+                    res[2] += count;
+                    tlb.Rows[i].Cells[3].Range.InsertAfter(count>0?count.ToString():"");
+
+                    count = students.Count(c => c.Sex.ToLower().Equals("м"));
+                    res[3] += count;
+                    tlb.Rows[i].Cells[4].Range.InsertAfter(count > 0 ? count.ToString() : "");
+                    
+                    count = students.Count(c => c.HomeSchooling);
+                    res[4] += count;
+                    tlb.Rows[i].Cells[5].Range.InsertAfter(count > 0 ? count.ToString() : "");
+
+                    count = students.Count(c => c.Inclusive);
+                    res[5] += count;
+                    tlb.Rows[i].Cells[6].Range.InsertAfter(count > 0 ? count.ToString() : "");
+
+                    count = students.Count(c => c.Invalidity);
+                    res[6] += count;
+                    tlb.Rows[i].Cells[7].Range.InsertAfter(count > 0 ? count.ToString() : "");
+                    
+                    count = students.Count(c => c.ProbationTransferred);
+                    res[7] += count;
+                    tlb.Rows[i].Cells[8].Range.InsertAfter(count > 0 ? count.ToString() : "");
+                    
+                    i++;
+                    tlb.Rows.Add();
+
+                }
+
+                for (int j = 0; j < 8; j++)
+                {
+                    tlb.Rows[i].Cells[j + 1].Range.Bold = 1;
+                    tlb.Rows[i].Cells[j + 1].Range.Font.Color = Word.WdColor.wdColorRed;
+                    tlb.Rows[i].Cells[j+1].Range.InsertAfter(res[j] > 0 ? res[j].ToString() : "");
+                }
+
+               
+
+                app.Visible = true;
+
+            }
+            catch (Exception e)
+            {
+                doc.Close();
+                doc = null;
+                Console.WriteLine("Error!");
+            }
+        }
     }
 }

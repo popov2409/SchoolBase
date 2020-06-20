@@ -232,5 +232,10 @@ namespace SchoolBase
         {
             e.Row.Header = (e.Row.GetIndex()+1).ToString();
         }
+
+        private void ContingentReportMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reports.PrintContingentReport();
+        }
     }
 }
