@@ -120,5 +120,11 @@ namespace SchoolBase.View.ClassRoom
 
             
         }
+
+        private void EditClassItemMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ClassSchoolAdd((MainListBox.SelectedItem as SchoolClass).Id).ShowDialog();
+            InitializeListBox();
+        }
     }
 }

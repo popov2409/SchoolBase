@@ -32,7 +32,15 @@
         <ListBox Grid.Row="1" Name="MainListBox" FontSize="14">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=FullValueTeacher}"/>
+                    <TextBlock Text="{Binding Path=FullValueTeacher}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Редактировать" Name="EditClassItemMenu" Click="EditClassItemMenu_OnClick"/>
+                                <MenuItem Header="Удалить" Name="DeleteClassItemMenu"/>
+
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

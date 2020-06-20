@@ -38,7 +38,16 @@ namespace SchoolBase.View.ClassRoom
 
         void SetFields()
         {
-
+            NumComboBox.Text = SchoolClass.Number.ToString();
+            CharTextBlock.Text = SchoolClass.Character;
+            CategoryComboBox.SelectedItem =
+                DbProxy.SchoolDb.CategorySchoolClasses.FirstOrDefault(c => c.Id == SchoolClass.Category);
+            StatusComboBox.SelectedItem =
+                DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Id == SchoolClass.Status);
+            TeacherComboBox.Text = DbProxy.SchoolDb.Teachers.FirstOrDefault(c => c.Id == SchoolClass.Teacher)?.FullName;
+            GroupSchoolClasses = DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == SchoolClass.Id)
+                .ToList();
+            GroupListBox.ItemsSource = GroupSchoolClasses;
         }
 
         void InitializeCombobox()
@@ -103,9 +112,6 @@ namespace SchoolBase.View.ClassRoom
                     Character = CharTextBlock.Text,
                 };
 
-
-
-
                 if (TeacherComboBox.SelectedIndex < 0)
                 {
                     Model.Teacher teacher = new Model.Teacher() {Id = Guid.NewGuid(), FullName = TeacherComboBox.Text};
@@ -118,6 +124,19 @@ namespace SchoolBase.View.ClassRoom
                         DbProxy.SchoolDb.Teachers.First(c => c.FullName.Equals(TeacherComboBox.Text)).Id;
                 }
                 DbProxy.SchoolDb.SchoolClasses.Add(SchoolClass);
+            }
+            else
+            {
+                SchoolClass.Category = ((Model.CategorySchoolClass) CategoryComboBox.SelectedItem)?.Id ?? new Guid();
+                SchoolClass.Status = ((StatusSchoolClass) StatusComboBox.SelectedItem)?.Id ?? new Guid();
+                SchoolClass.Number = int.Parse(NumComboBox.Text);
+                SchoolClass.Character = CharTextBlock.Text;
+
+                if (TeacherComboBox.SelectedIndex<0 && TeacherComboBox.Text.Length > 2)
+                {
+
+
+                }
             }
 
             this.Close();

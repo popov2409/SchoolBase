@@ -51,9 +51,17 @@ namespace SchoolBase
                     TreeViewItem classTreeViewItem=new TreeViewItem(){Header = schoolClass.FullValue,Uid = schoolClass.Id.ToString()};
                     classTreeViewItem.PreviewMouseUp += ClassTreeViewItem_PreviewMouseUp; ;
                     ContextMenu classContextMenu=new ContextMenu();
+
+
                     MenuItem reportClassMenuItem=new MenuItem(){ Header = "Отчет", Uid = Uid = schoolClass.Id.ToString()};
                     reportClassMenuItem.Click += ReportClassMenuItem_Click;
                     classContextMenu.Items.Add(reportClassMenuItem);
+                    classContextMenu.Items.Add(new Separator());
+
+                    MenuItem editClassMenuItem=new MenuItem(){ Header = "Свойства", Uid = Uid = schoolClass.Id.ToString() };
+                    editClassMenuItem.Click += EditClassMenuItem_Click;
+                    classContextMenu.Items.Add(editClassMenuItem);
+
                     classTreeViewItem.ContextMenu = classContextMenu;
 
                     List<GroupSchoolClass> groupSchoolClasses =
@@ -75,6 +83,11 @@ namespace SchoolBase
 
                 MainTreeView.Items.Add(categoryTreeViewItem);
             }
+        }
+
+        private void EditClassMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new ClassSchoolAdd(Guid.Parse(((MenuItem) sender).Uid)).ShowDialog();
         }
 
         private void ReportClassMenuItem_Click(object sender, RoutedEventArgs e)
