@@ -31,7 +31,8 @@ namespace SchoolBase
             InitializeComponent();
             DbProxy.LoadData();
             InitializeTreeView();
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c=>c.FullName);
+            UpdateSourceMainGrid();
+            //MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c=>c.FullName);
            // new TeacherListView().ShowDialog();
         }
 
@@ -104,19 +105,6 @@ namespace SchoolBase
             Reports.PrintGroupReport(Guid.Parse(((MenuItem) sender).Uid));
         }
 
-        /// <summary>
-        /// Клик по категории классов
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void categoryTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.CategoryId == Guid.Parse(((TreeViewItem)sender).Uid)).OrderBy(c => c.FullName);
-        }
-
-       
-
         private void Window_Closed(object sender, EventArgs e)
         {
             DbProxy.SaveData();
@@ -156,7 +144,9 @@ namespace SchoolBase
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c=>c.FullName.ToLower().Contains(SearchTextBox.Text.ToLower()));
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c =>
+                c.FullName.ToLower().Contains(SearchTextBox.Text.ToLower()) &&
+                c.IsArhive == IsArhiveSearchCheckBox.IsChecked);
         }
 
         private void EditStudentButton_OnClick(object sender, RoutedEventArgs e)
@@ -164,7 +154,7 @@ namespace SchoolBase
             if (MainGrid.SelectedItem != null)
             {
                 new AddStudentView(MainGrid.SelectedItem as Student).ShowDialog();
-                MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
+                UpdateSourceMainGrid();
 
             }
             else
@@ -176,13 +166,20 @@ namespace SchoolBase
         private void AddStudentMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new AddStudentView(null).ShowDialog();
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
+            UpdateSourceMainGrid();
         }
 
         private void DeleteStudentButton_OnClick(object sender, RoutedEventArgs e)
         {
-            DbProxy.SchoolDb.Students.Remove(MainGrid.SelectedItem as Student);
-            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c => c.FullName);
+            var student = MainGrid.SelectedItem as Student;
+            var resultMessage = MessageBox.Show("Вы действительно хотите удалить школьника? \n" +
+                                                student.FullName, "", MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+            if (resultMessage == MessageBoxResult.Yes)
+            {
+                DbProxy.SchoolDb.Students.Remove(student);
+                UpdateSourceMainGrid();
+            }
         }
 
         private void ClassReportMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -194,6 +191,40 @@ namespace SchoolBase
         {
             new GroupReportView().ShowDialog();
 
+        }
+
+        private void ToArhivStudentButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem != null)
+            {
+                var student = MainGrid.SelectedItem as Student;
+                var resultMessage = MessageBox.Show("Вы действительно хотите пометить школьника архив? \n" +
+                                                    student.FullName, "", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (resultMessage == MessageBoxResult.Yes)
+                {
+                    student.IsArhive = true;
+                    student.ArhivGroup = DbProxy.SchoolDb.SchoolClasses.First(c => c.Id == student.ClassId).FullValue;
+                    student.ClassId = new Guid();
+                    student.GroupId = new Guid();
+                    UpdateSourceMainGrid();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не выбран ученик!");
+            }
+        }
+
+      void UpdateSourceMainGrid()
+        {
+            MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c => c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c=>c.FullName);
+        }
+
+
+        private void IsArhiveSearchCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateSourceMainGrid();
         }
     }
 }

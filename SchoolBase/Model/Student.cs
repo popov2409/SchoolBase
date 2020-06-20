@@ -131,12 +131,21 @@ namespace SchoolBase.Model
         public string ClassAndGroupName {
             get
             {
-               SchoolClass sc= DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
-               GroupSchoolClass gsc= DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupId);
-               string res = "";
-               res += sc != null ? sc.FullValue : "";
-               res += gsc != null ? $"({gsc.FullValue})" : "";
-               return res;
+                
+                if (!IsArhive)
+                {
+                    string res = "";
+                    SchoolClass sc = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
+                    GroupSchoolClass gsc = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupId);
+                    res += sc != null ? sc.FullValue : "";
+                    res += gsc != null ? $"({gsc.FullValue})" : "";
+                    return res;
+                }
+                else
+                {
+                    return ArhivGroup;
+                }
+
             }
         }
     }

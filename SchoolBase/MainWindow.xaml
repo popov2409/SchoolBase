@@ -34,6 +34,7 @@
             <MenuItem Header="Отчеты">
                <MenuItem Header="Класс" Name="ClassReportMenuItem" Click="ClassReportMenuItem_OnClick"/>
                <MenuItem Header="Группа" Name="GroupReportMenuItem" Click="GroupReportMenuItem_OnClick"/>
+               <MenuItem Header="Контингент" Name="ContingentReportMenuItem" Click="GroupReportMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
@@ -86,7 +87,8 @@
                     </Button>
                     <Button Name="ToArhivStudentButton"
                             Width="30"
-                            Margin="1">
+                            Margin="1"
+                            Click="ToArhivStudentButton_OnClick">
                         <StackPanel>
                             <Image Source="Icons/Arphif.png" />
                         </StackPanel>
@@ -99,7 +101,7 @@
                              Margin="1"
                              VerticalContentAlignment="Center"
                              FontSize="16" TextChanged="SearchTextBox_TextChanged"/>
-                    <CheckBox Name="IsArhiveSearchCheckBox"  Content="Поиск в архиве" Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center" />
+                    <CheckBox Name="IsArhiveSearchCheckBox"  Content="Поиск в архиве" Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center" Click="IsArhiveSearchCheckBox_Click" />
                 </StackPanel>
                 <DataGrid Name="MainGrid"
                           Grid.Row="1"
