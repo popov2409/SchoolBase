@@ -251,5 +251,10 @@ namespace SchoolBase
         {
             Reports.PrintContingentReport();
         }
+
+        private void AvailableReportMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new AvailableReportView().ShowDialog();
+        }
     }
 }

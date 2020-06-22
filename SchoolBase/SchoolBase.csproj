@@ -86,6 +86,9 @@
     <Compile Include="View\Quarter\QuarterListView.xaml.cs">
       <DependentUpon>QuarterListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Report\AvailableReportView.xaml.cs">
+      <DependentUpon>AvailableReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Report\ClassReportView.xaml.cs">
       <DependentUpon>ClassReportView.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Quarter\QuarterListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Report\AvailableReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

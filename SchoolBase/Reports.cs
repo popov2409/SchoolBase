@@ -214,5 +214,18 @@ namespace SchoolBase
                 Console.WriteLine("Error!");
             }
         }
+
+        public static void PrintAvailableReport(int quater, int year)
+        {
+            List<Student> students = new List<Student>();
+            List<Quarter> quarters = quater == 0
+                ? DbProxy.SchoolDb.Quarters.Where(c => c.Year == year).ToList()
+                : DbProxy.SchoolDb.Quarters.Where(c => c.Year == year && c.Number == quater).ToList();
+            DateTime sd = quarters.Select(c => DateTime.Parse(c.StartDate)).Min();
+            DateTime ed = quarters.Select(c => DateTime.Parse(c.EndDate)).Max();
+
+
+        }
+
     }
 }
