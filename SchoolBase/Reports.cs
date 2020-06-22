@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Word=Microsoft.Office.Interop.Word;
 using System.Reflection;
+using System.Windows;
 using SchoolBase.Model;
 
 namespace SchoolBase
@@ -217,14 +218,66 @@ namespace SchoolBase
 
         public static void PrintAvailableReport(int quater, int year)
         {
-            List<Student> students = new List<Student>();
             List<Quarter> quarters = quater == 0
                 ? DbProxy.SchoolDb.Quarters.Where(c => c.Year == year).ToList()
                 : DbProxy.SchoolDb.Quarters.Where(c => c.Year == year && c.Number == quater).ToList();
             DateTime sd = quarters.Select(c => DateTime.Parse(c.StartDate)).Min();
             DateTime ed = quarters.Select(c => DateTime.Parse(c.EndDate)).Max();
+            List<Student> students= DbProxy.SchoolDb.Students.Where(student => student.AvailableDate.Length > 2).Where(student => DateTime.Parse(student.AvailableDate) >= sd && DateTime.Parse(student.AvailableDate) <= ed).ToList();
+            if (students.Count == 0)
+            {
+                MessageBox.Show("Поиск не дал результата!");
+                return;
+            }
 
+            Word._Document doc = null;
+            try
+            {
+                Word._Application app = new Word.Application();
+                string source = System.IO.Directory.GetCurrentDirectory() + "\\dot\\Available.dotx";
+                doc = app.Documents.Add(source);
+                doc.Activate();
+                Word.Find find = app.Selection.Find;
+                find.Text = "#h1";
+                find.Replacement.Text = quater==0?$"{year} учебный год":$"{quater} четверть {year} учебного года";
+                Object replace = Word.WdReplace.wdReplaceOne;
+                Object wrap = Word.WdFindWrap.wdFindContinue;
+                Object missing = Type.Missing;
+                find.Execute(FindText: Type.Missing,
+                    MatchCase: false,
+                    MatchWholeWord: false,
+                    MatchWildcards: false,
+                    MatchSoundsLike: missing,
+                    MatchAllWordForms: false,
+                    Forward: true,
+                    Wrap: wrap,
+                    Format: false,
+                    ReplaceWith: missing, Replace: replace);
+                Word.Table tlb = doc.Tables[1];
+                int i = 3;
+                foreach (Student student in students)
+                {
+                    tlb.Rows[i].Cells[2].Range.InsertAfter(DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == student.ClassId)?.FullValue);
+                    tlb.Rows[i].Cells[3].Range.InsertAfter(student.FullName);
+                    tlb.Rows[i].Cells[4].Range.InsertAfter(student.AvailableDate);
+                    tlb.Rows[i].Cells[5].Range.InsertAfter(student.EnrollmentDecree);
+                    tlb.Rows[i].Cells[6].Range.InsertAfter(student.FromSchool.Length > 3 ? student.FromSchool.Split('#')[0] : "");
+                    tlb.Rows[i].Cells[7].Range.InsertAfter(student.FromSchool.Length > 3 ? student.FromSchool.Split('#')[2] : "");
+                    i++;
+                    tlb.Rows.Add();
+                }
 
+                tlb.Rows[i].Delete();
+
+                app.Visible = true;
+
+            }
+            catch (Exception e)
+            {
+                doc.Close();
+                doc = null;
+                Console.WriteLine("Error!");
+            }
         }
 
     }
