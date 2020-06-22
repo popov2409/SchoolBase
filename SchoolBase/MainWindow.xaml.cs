@@ -88,6 +88,7 @@ namespace SchoolBase
         private void EditClassMenuItem_Click(object sender, RoutedEventArgs e)
         {
             new ClassSchoolAdd(Guid.Parse(((MenuItem) sender).Uid)).ShowDialog();
+            InitializeTreeView();
         }
 
         private void ReportClassMenuItem_Click(object sender, RoutedEventArgs e)

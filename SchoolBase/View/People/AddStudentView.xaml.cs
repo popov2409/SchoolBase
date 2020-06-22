@@ -83,7 +83,7 @@ namespace SchoolBase.View.Student
 
         void InitializeBoxes()
         {
-            ClassComboBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Character).ThenBy(c=>c.Number);
+            ClassComboBox.ItemsSource = DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Number).ThenBy(c=>c.Character);
             FirstLanguageComboBox.ItemsSource = DbProxy.SchoolDb.Languages;
             FromSityComboBox.ItemsSource = DbProxy.SchoolDb.Students.Select(c => c.FromSchool.Split('#')[2]).Distinct();
             FromRegionComboBox.ItemsSource= DbProxy.SchoolDb.Students.Select(c => c.FromSchool.Split('#')[1]).Distinct();

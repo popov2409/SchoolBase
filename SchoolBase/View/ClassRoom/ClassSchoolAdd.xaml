@@ -51,8 +51,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-                
-                   
             <Grid Margin="20,5,20,0" Height="35">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

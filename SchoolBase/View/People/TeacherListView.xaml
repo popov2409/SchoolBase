@@ -25,7 +25,7 @@
                     <TextBlock Text="{Binding Path=FullName}" Name="FullNameTextName" >
                         <TextBlock.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Переименовать" Name="EditItem" Click="EditItem_OnClick"/>
+                                <MenuItem Header="Редактировать" Name="EditItem" Click="EditItem_OnClick"/>
                                 <MenuItem Header="Удалить" Name="DelItem" Click="DelItem_OnClick"/>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
