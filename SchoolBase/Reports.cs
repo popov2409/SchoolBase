@@ -153,7 +153,7 @@ namespace SchoolBase
                 Word.Table tlb = doc.Tables[1];
                 int i = 2;
                 int[] res = new int[8];
-                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Character).ThenBy(c=>c.Number))
+                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.OrderBy(c=>c.Number).ThenBy(c=>c.Character))
                 {
                     tlb.Rows[i].Cells[1].Range.InsertAfter(schoolClass.FullValue);
                     res[0]++;
