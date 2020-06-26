@@ -45,6 +45,7 @@ namespace SchoolBase.View.Teacher
             }
             MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers.OrderBy(c => c.FullName);
             NameTextBlock.Text = "";
+            DbProxy.SaveData();
         }
 
         private void FullNameTextName_OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -82,6 +83,7 @@ namespace SchoolBase.View.Teacher
             }
             DbProxy.SchoolDb.Teachers.Remove(teacher);
             MainListBox.ItemsSource = DbProxy.SchoolDb.Teachers.OrderBy(c => c.FullName);
+            DbProxy.SaveData();
         }
 
         private void DelItem_OnClick(object sender, RoutedEventArgs e)

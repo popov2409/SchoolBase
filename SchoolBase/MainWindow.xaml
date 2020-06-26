@@ -19,24 +19,26 @@
             <MenuItem Header="Администрирование">
                 <MenuItem Header="Списки" >
                     <MenuItem Header="Изучаемые языки" Name="LanguageMenuItem" Click="LanguageMenuItem_OnClick"/>
-                    
                     <MenuItem Header="Учителя" Name="TeacherMenuItem" Click="TeacherMenuItem_OnClick"></MenuItem>
                     <MenuItem Header="Четверти" Name="QuarterMenuItem" Click="QuarterMenuItem_OnClick"/>
                 </MenuItem>
-                <MenuItem Header="Добавить школьников" Name="AddStudentMenuItem" Click="AddStudentMenuItem_OnClick"/>
+                <MenuItem Header="Добавить школьника" Name="AddStudentMenuItem" Click="AddStudentMenuItem_OnClick"/>
             </MenuItem>
             <MenuItem Header="Классы">
-                <MenuItem Header="Список классов" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
-                <MenuItem Header="Категорий классов" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
-                <MenuItem Header="Статусы классов" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+                <MenuItem Header="Категорий" Name="CategoryClassSchoolMenuItem" Click="CategoryClassSchoolMenuItem_OnClick"/>
+                <MenuItem Header="Список" Name="ClassSchoolMenuItem" Click="ClassSchoolMenuItem_OnClick"/>
+                <MenuItem Header="Статусы" Name="StatusClassSchoolMenuItem" Click="StatusClassSchoolMenuItem_OnClick"/>
+                <Separator/>
+                <MenuItem Header="Увеличить на год" Name="UpAllClassMenuItem" Click="IterateAllClassMenuItem_OnClick" Uid="Up"/>
+                <MenuItem Header="Уменьшить на год" Name="DownAllClassMenuItem" Click="IterateAllClassMenuItem_OnClick" Uid="Down"/>
 
             </MenuItem>
             <MenuItem Header="Отчеты">
-               <MenuItem Header="Класс" Name="ClassReportMenuItem" Click="ClassReportMenuItem_OnClick"/>
-               <MenuItem Header="Группа" Name="GroupReportMenuItem" Click="GroupReportMenuItem_OnClick"/>
-               <MenuItem Header="Контингент" Name="ContingentReportMenuItem" Click="ContingentReportMenuItem_OnClick"/>
-                <MenuItem Header="О поступивших" Name="AvailableReportMenuItem" Click="AvailableReportMenuItem_OnClick"/>
-
+                <MenuItem Header="Выбывшие" Name="DismissalReportMenuItem" Click="DismissalReportMenuItem_OnClick"/>
+                <MenuItem Header="Группа" Name="GroupReportMenuItem" Click="GroupReportMenuItem_OnClick"/>
+                <MenuItem Header="Класс" Name="ClassReportMenuItem" Click="ClassReportMenuItem_OnClick"/>
+                <MenuItem Header="Контингент" Name="ContingentReportMenuItem" Click="ContingentReportMenuItem_OnClick"/>
+                <MenuItem Header="Поступившие" Name="AvailableReportMenuItem" Click="AvailableReportMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">

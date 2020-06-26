@@ -280,5 +280,38 @@ namespace SchoolBase
             }
         }
 
+        public static void PrintDismissalReport()
+        {
+            Word._Document doc = null;
+            try
+            {
+                Word._Application app = new Word.Application();
+                string source = System.IO.Directory.GetCurrentDirectory() + "\\dot\\Dismissal.dotx";
+                doc = app.Documents.Add(source);
+                doc.Activate();
+                Word.Table tlb = doc.Tables[1];
+                int i = 2;
+
+                foreach (Student student in DbProxy.SchoolDb.Students.Where(c => c.DismissalDate.Length > 2)
+                    .OrderBy(c => c.Class.Number).ThenBy(c => c.Class.Character).ThenBy(c => c.FullName))
+                {
+                    tlb.Rows[i].Cells[2].Range.InsertAfter(student.Class.FullValue);
+                    tlb.Rows[i].Cells[3].Range.InsertAfter(student.FullName);
+                    tlb.Rows[i].Cells[4].Range.InsertAfter(student.DismissalDate);
+                    i++;
+                    tlb.Rows.Add();
+                }
+                tlb.Rows[i].Delete();
+
+                app.Visible = true;
+            }
+            catch (Exception e)
+            {
+                doc.Close();
+                doc = null;
+                Console.WriteLine("Error!");
+            }
+        }
+
     }
 }

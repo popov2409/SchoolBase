@@ -31,7 +31,7 @@ namespace SchoolBase
             InitializeComponent();
             DbProxy.LoadData();
             InitializeTreeView();
-            UpdateSourceMainGrid();
+            InitializeMainGrid();
             //MainGrid.ItemsSource = DbProxy.SchoolDb.Students.OrderBy(c=>c.FullName);
            // new TeacherListView().ShowDialog();
         }
@@ -168,7 +168,8 @@ namespace SchoolBase
             if (MainGrid.SelectedItem != null)
             {
                 new AddStudentView(MainGrid.SelectedItem as Student).ShowDialog();
-                UpdateSourceMainGrid();
+                InitializeMainGrid();
+                DbProxy.SaveData();
 
             }
             else
@@ -180,7 +181,8 @@ namespace SchoolBase
         private void AddStudentMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new AddStudentView(null).ShowDialog();
-            UpdateSourceMainGrid();
+            InitializeMainGrid();
+            DbProxy.SaveData();
         }
 
         private void DeleteStudentButton_OnClick(object sender, RoutedEventArgs e)
@@ -192,7 +194,8 @@ namespace SchoolBase
             if (resultMessage == MessageBoxResult.Yes)
             {
                 DbProxy.SchoolDb.Students.Remove(student);
-                UpdateSourceMainGrid();
+                InitializeMainGrid();
+                DbProxy.SaveData();
             }
         }
 
@@ -222,7 +225,8 @@ namespace SchoolBase
                     student.ClassId = new Guid();
                     student.GroupId = new Guid();
                     student.CategoryId=new Guid();
-                    UpdateSourceMainGrid();
+                    InitializeMainGrid();
+                    DbProxy.SaveData();
                 }
             }
             else
@@ -231,7 +235,7 @@ namespace SchoolBase
             }
         }
 
-      void UpdateSourceMainGrid()
+      void InitializeMainGrid()
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students.Where(c => c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c=>c.FullName);
         }
@@ -239,7 +243,7 @@ namespace SchoolBase
 
         private void IsArhiveSearchCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            UpdateSourceMainGrid();
+            InitializeMainGrid();
         }
 
         private void MainGrid_OnLoadingRow(object sender, DataGridRowEventArgs e)
@@ -255,6 +259,30 @@ namespace SchoolBase
         private void AvailableReportMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
             new AvailableReportView().ShowDialog();
+        }
+
+        private void DismissalReportMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reports.PrintDismissalReport();
+        }
+
+        private void IterateAllClassMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses)
+            {
+                if (((MenuItem)sender).Uid.Equals("Up"))
+                {
+                    schoolClass.Number++;
+                }
+                else
+                {
+                    schoolClass.Number--;
+                }
+            }
+            DbProxy.SaveData();
+            InitializeTreeView();
+            InitializeMainGrid();
+            
         }
     }
 }

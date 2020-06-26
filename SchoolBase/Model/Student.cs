@@ -131,6 +131,11 @@ namespace SchoolBase.Model
         /// </summary>
         public bool ProbationTransferred { get; set; }
 
+        /// <summary>
+        /// Получить класс
+        /// </summary>
+        public SchoolClass Class => DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
+
         public string ClassAndGroupName {
             get
             {
