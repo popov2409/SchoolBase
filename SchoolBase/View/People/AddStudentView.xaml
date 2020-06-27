@@ -6,7 +6,7 @@
         mc:Ignorable="d"
        Title=""
         Width="800"
-        Height="510"
+        Height="570"
         Icon="/Icons/Student.png"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -85,40 +85,69 @@
                           VerticalAlignment="Center"
                           SnapsToDevicePixels="True" />
             </StackPanel>
-            <StackPanel Margin="5,5,0,0"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="16"
-                           FontWeight="Bold"
-                           Text="Класс" />
-                <ComboBox Name="ClassComboBox"
-                          MinWidth="60"
-                          Margin="5,0,10,0"
-                          VerticalAlignment="Center"
-                          FontSize="14" SelectionChanged="ClassComboBox_SelectionChanged">
-                    <ComboBox.ItemTemplate>
+            <Grid Margin="5,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Text="Класс" 
+                                   Width="60"/>
+                        <ComboBox Name="ClassComboBox"
+                                  MinWidth="60"
+                                  Margin="5,0,10,0"
+                                  VerticalAlignment="Center"
+                                  FontSize="14" SelectionChanged="ClassComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=FullValue}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Text="Группа"
+                                   Width="60"/>
+                        <ComboBox Name="GroupComboBox"
+                                  MinWidth="150"
+                                  Margin="5,0,0,0"
+                                  VerticalContentAlignment="Center"
+                                  FontSize="14">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=FullValue}" FontSize="14"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Margin="5,0,0,0" Name="AddInGroupButton" Content="->" Width="30" FontWeight="Bold" Click="AddInGroupButton_OnClick"/>
+
+                    </StackPanel>
+                </StackPanel>
+                <ListBox Name="GroupsListBox" Grid.Column="1" Margin="15,0,0,0" MinWidth="200" HorizontalAlignment="Left" Height="80" HorizontalContentAlignment="Left">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=FullValue}" />
+                            <TextBlock FontSize="14" Text="{Binding Path=FullValue}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="RemoveInGroupMenuItem" Header="Удалить группу"/>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
                         </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="16"
-                           FontWeight="Bold"
-                           Text="Группа" />
-                <ComboBox Name="GroupComboBox"
-                          Width="300"
-                          Margin="5,0,0,0"
-                          VerticalContentAlignment="Center"
-                          FontSize="14">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=FullValue}" FontSize="14"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+
+            </Grid>
+           
             <StackPanel Margin="5,5,0,0"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">

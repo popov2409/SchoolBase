@@ -25,7 +25,7 @@ namespace SchoolBase.Model
         /// <summary>
         /// Группа класса в котором учится
         /// </summary>
-        public Guid GroupId { get; set; }
+        public List<Guid> GroupId { get; set; }
 
         /// <summary>
         /// Категория класса в школе
@@ -136,26 +136,6 @@ namespace SchoolBase.Model
         /// </summary>
         public SchoolClass Class => DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
 
-        public string ClassAndGroupName {
-            get
-            {
-                
-                if (!IsArhive)
-                {
-                    string res = "";
-                    SchoolClass sc = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == ClassId);
-                    GroupSchoolClass gsc = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == GroupId);
-                    res += sc != null ? sc.FullValue : "";
-                    res += gsc != null ? $"({gsc.FullValue})" : "";
-                    return res;
-                }
-                else
-                {
-                    return ArhivGroup;
-                }
-
-            }
-        }
     }
 
     public class Teacher

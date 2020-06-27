@@ -20,6 +20,7 @@ namespace SchoolBase.View.Student
     public partial class AddStudentView : Window
     {
         private Model.Student student;
+
         public AddStudentView(Model.Student student)
         {
             InitializeComponent();
@@ -76,8 +77,8 @@ namespace SchoolBase.View.Student
             if (fLang != null) SecondLanguageComboBox.SelectedItem = fLang;
             //Класс и группа
             ClassComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassId);
-            GroupComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupId);
-
+            //GroupComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupId);
+            InitializeGroupsListBox();
 
         }
 
@@ -127,7 +128,7 @@ namespace SchoolBase.View.Student
 
             if (student == null)
             {
-                student=new Model.Student(){Id = Guid.NewGuid()};
+                student=new Model.Student(){Id = Guid.NewGuid(),GroupId = new List<Guid>()};
                 SetDataStudent(student);
                 DbProxy.SchoolDb.Students.Add(student);
             }
@@ -135,7 +136,7 @@ namespace SchoolBase.View.Student
             {
                 SetDataStudent(DbProxy.SchoolDb.Students.First(c => c.Id == student.Id));
             }
-
+            DbProxy.SaveData();
             this.Close();
 
         }
@@ -159,7 +160,7 @@ namespace SchoolBase.View.Student
             //Категория
             l_student.CategoryId = sc?.Category ?? new Guid(); 
             //Группа в классе
-            l_student.GroupId = GroupComboBox.SelectedIndex<0?new Guid(): ((GroupSchoolClass)GroupComboBox.SelectedItem).Id;
+            //l_student.GroupId = GroupComboBox.SelectedIndex<0?new Guid(): ((GroupSchoolClass)GroupComboBox.SelectedItem).Id;
             //Пол
             l_student.Sex = SexComboBox.Text;
             //дата поступления в школу
@@ -198,6 +199,30 @@ namespace SchoolBase.View.Student
             l_student.OtherText = OtherTextBox.Text;
 
             return l_student;
+        }
+
+        private void AddInGroupButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (GroupComboBox.SelectedItem==null)
+            {
+                MessageBox.Show("Не выбрана группа!");
+                return;
+            }
+            GroupSchoolClass gsc= GroupComboBox.SelectedItem as GroupSchoolClass;
+
+            if (student.GroupId.Contains(gsc.Id))
+            {
+                MessageBox.Show("Группа уже имеется в списке!");
+                return;
+            }
+
+            student.GroupId.Add(gsc.Id);
+            InitializeGroupsListBox();
+        }
+
+        void InitializeGroupsListBox()
+        {
+            GroupsListBox.ItemsSource = student.GroupId.Select(guid => DbProxy.SchoolDb.GroupSchoolClasses.First(c => c.Id == guid)).OrderBy(c=>c.Number).ToList();
         }
     }
 }

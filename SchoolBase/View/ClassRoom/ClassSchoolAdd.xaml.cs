@@ -93,9 +93,9 @@ namespace SchoolBase.View.ClassRoom
                 c.Id == GroupSchoolClasses[GroupSchoolClasses.Count - 1].Id);
             if (gsc!=null)
             {
-                foreach (Model.Student student in DbProxy.SchoolDb.Students.Where(c=>c.GroupId==gsc.Id))
+                foreach (Model.Student student in DbProxy.SchoolDb.Students.Where(c=>c.GroupId.Contains(gsc.Id)))
                 {
-                    student.GroupId = new Guid();
+                    student.GroupId.Remove(gsc.Id);
                 }
             }
             DbProxy.SchoolDb.GroupSchoolClasses.Remove(gsc);

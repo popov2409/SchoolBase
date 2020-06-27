@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Word=Microsoft.Office.Interop.Word;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using SchoolBase.Model;
 
@@ -62,9 +63,11 @@ namespace SchoolBase
                     tlb.Rows[i].Cells[2].Range.InsertAfter(student.FullName);
                     tlb.Rows[i].Cells[3].Range.InsertAfter(student.Sex.Length>0?student.Sex:"");
                     tlb.Rows[i].Cells[4].Range.InsertAfter(student.Birthdate.Length > 2 ? student.Birthdate : "");
-                    GroupSchoolClass gr =
-                        DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == student.GroupId);
-                    tlb.Rows[i].Cells[5].Range.InsertAfter(gr!=null ? gr.Number.ToString() : "");
+
+                    string gr = student.GroupId.Aggregate("", (current, guid) => current + (DbProxy.SchoolDb.GroupSchoolClasses.First(c => c.Id == guid).Number.ToString() + ","));
+
+                    gr = gr.Length > 0 ? gr.Remove(gr.Length - 1) : gr;
+                    tlb.Rows[i].Cells[5].Range.InsertAfter(gr);
                     tlb.Rows[i].Cells[6].Range.InsertAfter(student.AvailableDate.Length>2 ? student.AvailableDate : "");
                     tlb.Rows[i].Cells[7].Range.InsertAfter(student.DismissalDate.Length > 2 ? student.DismissalDate : "");
                     i++;
@@ -123,7 +126,7 @@ namespace SchoolBase
                     ReplaceWith: missing, Replace: replace);
                 Word.Table tlb = doc.Tables[1];
                 int i = 2;
-                foreach (Student student in DbProxy.SchoolDb.Students.Where(c => c.GroupId == groupId).OrderBy(c => c.FullName))
+                foreach (Student student in DbProxy.SchoolDb.Students.Where(c => c.GroupId.Contains(groupId)).OrderBy(c => c.FullName))
                 {
                     tlb.Rows[i].Cells[2].Range.InsertAfter(student.FullName);
                     i++;
@@ -302,7 +305,6 @@ namespace SchoolBase
                     tlb.Rows.Add();
                 }
                 tlb.Rows[i].Delete();
-
                 app.Visible = true;
             }
             catch (Exception e)

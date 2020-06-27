@@ -122,7 +122,7 @@
                         <Style TargetType="DataGridRow">
                             <Setter Property="ToolTip">
                                 <Setter.Value>
-                                    <TextBlock Text="{Binding Path=ClassAndGroupName}" />
+                                    <TextBlock Text="{Binding Path=Class.FullValue}" />
                                 </Setter.Value>
                             </Setter>
                         </Style>

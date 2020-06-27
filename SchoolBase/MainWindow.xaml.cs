@@ -99,7 +99,7 @@ namespace SchoolBase
         private void GrourTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             MainGrid.ItemsSource = DbProxy.SchoolDb.Students
-                .Where(c => c.GroupId == Guid.Parse(((TreeViewItem)sender).Uid) && c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c => c.FullName);
+                .Where(c => c.GroupId.Contains(Guid.Parse(((TreeViewItem)sender).Uid)) && c.IsArhive == IsArhiveSearchCheckBox.IsChecked).OrderBy(c => c.FullName);
         }
 
         private void ClassTreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -169,8 +169,6 @@ namespace SchoolBase
             {
                 new AddStudentView(MainGrid.SelectedItem as Student).ShowDialog();
                 InitializeMainGrid();
-                DbProxy.SaveData();
-
             }
             else
             {
@@ -182,7 +180,6 @@ namespace SchoolBase
         {
             new AddStudentView(null).ShowDialog();
             InitializeMainGrid();
-            DbProxy.SaveData();
         }
 
         private void DeleteStudentButton_OnClick(object sender, RoutedEventArgs e)
@@ -223,7 +220,7 @@ namespace SchoolBase
                     student.IsArhive = true;
                     student.ArhivGroup = DbProxy.SchoolDb.SchoolClasses.First(c => c.Id == student.ClassId).FullValue;
                     student.ClassId = new Guid();
-                    student.GroupId = new Guid();
+                    student.GroupId = new List<Guid>();
                     student.CategoryId=new Guid();
                     InitializeMainGrid();
                     DbProxy.SaveData();
