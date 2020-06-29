@@ -59,7 +59,7 @@ namespace SchoolBase
                     classContextMenu.Items.Add(new Separator());
 
                     MenuItem editClassMenuItem = new MenuItem()
-                        {Header = "Редактировать", Uid = schoolClass.Id.ToString()};
+                        {Header = "Изменить", Uid = schoolClass.Id.ToString()};
                     editClassMenuItem.Click += EditClassMenuItem_Click;
                     classContextMenu.Items.Add(editClassMenuItem);
 
@@ -79,11 +79,14 @@ namespace SchoolBase
                         groupContextMenu.Items.Add(new Separator());
 
                         MenuItem groupEditMenuItem = new MenuItem()
-                            {Header = "Редактировать", Uid = groupSchoolClass.Id.ToString()};
-
+                            {Header = "Изменить", Uid = groupSchoolClass.Id.ToString()};
                         groupEditMenuItem.Click += GroupEditMenuItem_Click;
-
                         groupContextMenu.Items.Add(groupEditMenuItem);
+
+                        MenuItem editListStudentInGroupMenuItem=new MenuItem() { Header = "Редактировать список учеников", Uid = groupSchoolClass.Id.ToString() };
+                        editListStudentInGroupMenuItem.Click += EditListStudentInGroupMenuItem_Click;
+                        groupContextMenu.Items.Add(editListStudentInGroupMenuItem);
+
                         grourTreeViewItem.ContextMenu = groupContextMenu;
                         classTreeViewItem.Items.Add(grourTreeViewItem);
                     }
@@ -93,6 +96,13 @@ namespace SchoolBase
 
                 MainTreeView.Items.Add(categoryTreeViewItem);
             }
+        }
+
+        private void EditListStudentInGroupMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new StudentInGroupListView(Guid.Parse(((MenuItem)sender).Uid)).ShowDialog();
+            InitializeTreeView();
+            InitializeMainGrid();
         }
 
         private void GroupEditMenuItem_Click(object sender, RoutedEventArgs e)

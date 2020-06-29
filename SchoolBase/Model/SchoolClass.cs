@@ -110,6 +110,9 @@ namespace SchoolBase.Model
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Номер-наименование
+        /// </summary>
         public string FullValue => Value.Length > 0 ? $"{Number}-{Value}" : Number.ToString();
         
 

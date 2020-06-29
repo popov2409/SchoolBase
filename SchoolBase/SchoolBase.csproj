@@ -78,6 +78,9 @@
     <Compile Include="View\ClassRoom\StatusSchoolClassListView.xaml.cs">
       <DependentUpon>StatusSchoolClassListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ClassRoom\StudentInGroupListView.xaml.cs">
+      <DependentUpon>StudentInGroupListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\People\AddStudentView.xaml.cs">
       <DependentUpon>AddStudentView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ClassRoom\StatusSchoolClassListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClassRoom\StudentInGroupListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
