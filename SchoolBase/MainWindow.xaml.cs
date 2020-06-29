@@ -53,27 +53,37 @@ namespace SchoolBase
                     ContextMenu classContextMenu=new ContextMenu();
 
 
-                    MenuItem reportClassMenuItem=new MenuItem(){ Header = "Отчет", Uid = Uid = schoolClass.Id.ToString()};
+                    MenuItem reportClassMenuItem = new MenuItem() {Header = "Отчет", Uid = schoolClass.Id.ToString()};
                     reportClassMenuItem.Click += ReportClassMenuItem_Click;
                     classContextMenu.Items.Add(reportClassMenuItem);
                     classContextMenu.Items.Add(new Separator());
 
-                    MenuItem editClassMenuItem=new MenuItem(){ Header = "Свойства", Uid = Uid = schoolClass.Id.ToString() };
+                    MenuItem editClassMenuItem = new MenuItem()
+                        {Header = "Редактировать", Uid = schoolClass.Id.ToString()};
                     editClassMenuItem.Click += EditClassMenuItem_Click;
                     classContextMenu.Items.Add(editClassMenuItem);
 
                     classTreeViewItem.ContextMenu = classContextMenu;
 
                     List<GroupSchoolClass> groupSchoolClasses =
-                        DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == schoolClass.Id).ToList();
+                        DbProxy.SchoolDb.GroupSchoolClasses.Where(c => c.SchoolClass == schoolClass.Id).OrderBy(c=>c.Number).ToList();
                     foreach (GroupSchoolClass groupSchoolClass in groupSchoolClasses)
                     {
                         TreeViewItem grourTreeViewItem = new TreeViewItem() { Header = groupSchoolClass.FullValue,Uid = groupSchoolClass.Id.ToString()};
                         grourTreeViewItem.PreviewMouseUp += GrourTreeViewItem_PreviewMouseUp;
                         ContextMenu groupContextMenu=new ContextMenu();
+                        
                         MenuItem reportGroupMenuItem=new MenuItem(){Header = "Отчет", Uid = groupSchoolClass.Id.ToString()};
                         reportGroupMenuItem.Click += reportGroupMenuItem_Click;
                         groupContextMenu.Items.Add(reportGroupMenuItem);
+                        groupContextMenu.Items.Add(new Separator());
+
+                        MenuItem groupEditMenuItem = new MenuItem()
+                            {Header = "Редактировать", Uid = groupSchoolClass.Id.ToString()};
+
+                        groupEditMenuItem.Click += GroupEditMenuItem_Click;
+
+                        groupContextMenu.Items.Add(groupEditMenuItem);
                         grourTreeViewItem.ContextMenu = groupContextMenu;
                         classTreeViewItem.Items.Add(grourTreeViewItem);
                     }
@@ -83,6 +93,12 @@ namespace SchoolBase
 
                 MainTreeView.Items.Add(categoryTreeViewItem);
             }
+        }
+
+        private void GroupEditMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new GroupEditView(Guid.Parse(((MenuItem)sender).Uid)).ShowDialog();
+            InitializeTreeView();
         }
 
         private void EditClassMenuItem_Click(object sender, RoutedEventArgs e)

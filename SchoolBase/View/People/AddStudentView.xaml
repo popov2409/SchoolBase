@@ -137,7 +137,7 @@
                             <TextBlock FontSize="14" Text="{Binding Path=FullValue}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Name="RemoveInGroupMenuItem" Header="Удалить группу"/>
+                                        <MenuItem Name="RemoveInGroupMenuItem" Header="Удалить группу" Click="RemoveInGroupMenuItem_OnClick"/>
                                     </ContextMenu>
                                 </TextBlock.ContextMenu>
                             </TextBlock>

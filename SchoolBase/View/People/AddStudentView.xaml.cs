@@ -224,5 +224,11 @@ namespace SchoolBase.View.Student
         {
             GroupsListBox.ItemsSource = student.GroupId.Select(guid => DbProxy.SchoolDb.GroupSchoolClasses.First(c => c.Id == guid)).OrderBy(c=>c.Number).ToList();
         }
+
+        private void RemoveInGroupMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            student.GroupId.Remove(((GroupSchoolClass) GroupsListBox.SelectedItem).Id);
+            InitializeGroupsListBox();
+        }
     }
 }
