@@ -92,38 +92,22 @@ namespace SchoolBase.View.ClassRoom
 
         private void StatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusComboBox.SelectedIndex == 0)
-            {
-                st = null;
-            }
-            else
-            {
-                st = DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.SelectedValue.ToString().TrimStart()));
-            }
+            st = StatusComboBox.SelectedIndex == 0 ? null : DbProxy.SchoolDb.StatusSchoolClasses.FirstOrDefault(c => c.Value.Contains(StatusComboBox.SelectedValue.ToString().TrimStart()));
             InitializeListBox();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            /*if (cat == null || st == null)
-            {
-                MessageBox.Show("Не выбнана категория или статус класса!");
-                return;
-            }*/
-
-
             SchoolClass sc= new ClassSchoolAdd(Guid.NewGuid()).AddClass();
             if (sc != null)
             {
                 InitializeListBox();
             }
-
-            
         }
 
         private void EditClassItemMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            new ClassSchoolAdd((MainListBox.SelectedItem as SchoolClass).Id).ShowDialog();
+            new ClassSchoolAdd(((SchoolClass) MainListBox.SelectedItem).Id).ShowDialog();
             InitializeListBox();
         }
     }

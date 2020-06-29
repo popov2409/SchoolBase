@@ -64,7 +64,10 @@ namespace SchoolBase
                     tlb.Rows[i].Cells[3].Range.InsertAfter(student.Sex.Length>0?student.Sex:"");
                     tlb.Rows[i].Cells[4].Range.InsertAfter(student.Birthdate.Length > 2 ? student.Birthdate : "");
 
-                    string gr = student.GroupId.Aggregate("", (current, guid) => current + (DbProxy.SchoolDb.GroupSchoolClasses.First(c => c.Id == guid).Number.ToString() + ","));
+                    string gr = student.GroupId
+                        .Select(guid => DbProxy.SchoolDb.GroupSchoolClasses.First(c => c.Id == guid))
+                        .OrderBy(c => c.Number).Aggregate("",
+                            (current, schoolClass) => current + (schoolClass.Number + ","));
 
                     gr = gr.Length > 0 ? gr.Remove(gr.Length - 1) : gr;
                     tlb.Rows[i].Cells[5].Range.InsertAfter(gr);
