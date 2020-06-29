@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SchoolBase.View.ClassRoom"
         mc:Ignorable="d"
-        Title="GroupEditView" Height="80" Width="450" WindowStyle="None" WindowStartupLocation="CenterScreen" FontSize="14">
+        Title="GroupEditView" Height="80" Width="500" WindowStyle="None" WindowStartupLocation="CenterScreen" FontSize="14">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

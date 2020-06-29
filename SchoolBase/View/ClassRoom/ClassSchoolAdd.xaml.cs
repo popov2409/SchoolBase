@@ -114,19 +114,26 @@ namespace SchoolBase.View.ClassRoom
 
             if (!EditMode)
             {
-                SchoolClass=new SchoolClass(){Id = Guid.NewGuid()};
+                SchoolClass = new SchoolClass() {Id = Guid.NewGuid()};
             }
 
-            SchoolClass.Category = ((Model.CategorySchoolClass)CategoryComboBox.SelectedItem)?.Id ?? new Guid();
-            SchoolClass.Status = ((StatusSchoolClass)StatusComboBox.SelectedItem)?.Id ?? new Guid();
+            SchoolClass.Category = ((Model.CategorySchoolClass) CategoryComboBox.SelectedItem)?.Id ?? new Guid();
+            SchoolClass.Status = ((StatusSchoolClass) StatusComboBox.SelectedItem)?.Id ?? new Guid();
             SchoolClass.Number = int.Parse(NumComboBox.Text);
             SchoolClass.Character = CharTextBlock.Text;
 
-            if (TeacherComboBox.SelectedIndex < 0 && TeacherComboBox.Text.Length > 2)
+            if (TeacherComboBox.SelectedIndex < 0)
             {
-                Model.Teacher teacher = new Model.Teacher() { Id = Guid.NewGuid(), FullName = TeacherComboBox.Text };
-                DbProxy.SchoolDb.Teachers.Add(teacher);
-                SchoolClass.Teacher = teacher.Id;
+                if (TeacherComboBox.Text.Length > 2)
+                {
+                    Model.Teacher teacher = new Model.Teacher() {Id = Guid.NewGuid(), FullName = TeacherComboBox.Text};
+                    DbProxy.SchoolDb.Teachers.Add(teacher);
+                    SchoolClass.Teacher = teacher.Id;
+                }
+                else
+                {
+                    SchoolClass.Teacher=new Guid();
+                }
             }
             else
             {
@@ -136,8 +143,13 @@ namespace SchoolBase.View.ClassRoom
 
             foreach (GroupSchoolClass groupSchoolClass in GroupSchoolClasses)
             {
-                if(DbProxy.SchoolDb.GroupSchoolClasses.Count(c=>c.Id==groupSchoolClass.Id)>0) continue;
+                if (DbProxy.SchoolDb.GroupSchoolClasses.Count(c => c.Id == groupSchoolClass.Id) > 0) continue;
                 DbProxy.SchoolDb.GroupSchoolClasses.Add(groupSchoolClass);
+            }
+
+            if (!EditMode)
+            {
+                DbProxy.SchoolDb.SchoolClasses.Add(SchoolClass);
             }
 
             this.Close();
