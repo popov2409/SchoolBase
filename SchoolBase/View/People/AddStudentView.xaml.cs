@@ -80,6 +80,11 @@ namespace SchoolBase.View.Student
             ClassComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassId);
             //Файл
             FileNameTextBLock.Text = l_student.File;
+            DelFilePathButton.Visibility = string.IsNullOrEmpty(l_student.File)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
+
+
             //GroupComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupId);
             InitializeGroupsListBox();
 
@@ -243,7 +248,15 @@ namespace SchoolBase.View.Student
             if (ofd.ShowDialog() == true)
             {
                 FileNameTextBLock.Text = ofd.SafeFileName;
+                DelFilePathButton.Visibility = Visibility.Visible;
+
             }
+        }
+
+        private void DelFilePathButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            FileNameTextBLock.Text = "";
+            DelFilePathButton.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.IO;
+using System.Windows;
 
 namespace SchoolBase.Model
 {
@@ -57,10 +58,16 @@ namespace SchoolBase.Model
             {
                 List<string> categoryFolders = dir.GetDirectories().Select(c => c.Name).ToList();
                 string categoryDirName = $"{categorySchoolClass.Value}#{categorySchoolClass.Id}";
-
                 if (!categoryFolders.Contains(categoryDirName))
                 {
-                    dir.CreateSubdirectory(categoryDirName);
+                    if (categoryFolders.Select(c => Guid.Parse(c.Split('#')[1])).ToList().Contains(categorySchoolClass.Id))
+                    {
+                        MessageBox.Show("Найдена папка!");
+                    }
+                    else
+                    {
+                        dir.CreateSubdirectory(categoryDirName);
+                    }
                 }
                 DirectoryInfo categoryDir = new DirectoryInfo(dir.FullName + "\\" + categoryDirName);
                 foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==categorySchoolClass.Id))
@@ -69,7 +76,16 @@ namespace SchoolBase.Model
                     List<string> classFolders = categoryDir.GetDirectories().Select(c => c.Name).ToList();
                     if (!classFolders.Contains(classDirName))
                     {
-                        categoryDir.CreateSubdirectory(classDirName);
+                        if (classFolders.Select(c => Guid.Parse(c.Split('#')[1])).ToList().Contains(schoolClass.Id))
+                        {
+                            string sd = classFolders.First(c => Guid.Parse(c.Split('#')[1]) == schoolClass.Id);
+                            DirectoryInfo di=new DirectoryInfo(categoryDir.FullName+"\\"+sd);
+                            di.MoveTo(categoryDir.FullName + "\\" + classDirName);
+                        }
+                        else
+                        {
+                            categoryDir.CreateSubdirectory(classDirName);
+                        }
                     }
                 }
 

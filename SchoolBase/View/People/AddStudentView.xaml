@@ -62,8 +62,7 @@
                          FontSize="14" />
                 <Button Name="FileButton" Content="Файл" Width="60" FontSize="14" FontWeight="Bold" Click="FileButton_OnClick"/>
                 <TextBlock Name="FileNameTextBLock" Margin="10,0,0,0" FontSize="16" HorizontalAlignment="Center" />
-                
-                
+                <Button Name="DelFilePathButton" FontSize="14" FontWeight="Bold"  Content="Очистить" Margin="10,0,0,0" Visibility="Collapsed" Click="DelFilePathButton_OnClick"/>
             </StackPanel>
             <StackPanel Margin="5,5,0,0"
                         VerticalAlignment="Center"
