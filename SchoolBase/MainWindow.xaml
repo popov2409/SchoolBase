@@ -80,6 +80,16 @@
                             <TextBlock FontSize="16" Text="Редактировать" />
                         </Button.ToolTip>
                     </Button>
+                    <Button Name="ViewFileButton"
+                            Width="30"
+                            Margin="1">
+                        <StackPanel>
+                            <Image Source="Icons/file.png" />
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <TextBlock FontSize="16" Text="В архив" />
+                        </Button.ToolTip>
+                    </Button>
                     <Button Name="DeleteStudentButton"
                             Width="30"
                             Margin="1"
@@ -102,6 +112,7 @@
                             <TextBlock FontSize="16" Text="В архив" />
                         </Button.ToolTip>
                     </Button>
+
                     <TextBox Name="SearchTextBox"
                              MinWidth="200"
                              Margin="1"
@@ -199,6 +210,13 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding Path=DismissalDecree}" Header="Дата приказа">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Path=OtherText}" Header="Примечание">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>
                                     <Setter Property="TextBlock.TextAlignment" Value="Center" />

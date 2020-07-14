@@ -196,7 +196,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\file.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Arphif.png" />
     <Resource Include="Icons\cancel.png" />
