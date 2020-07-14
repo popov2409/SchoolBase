@@ -82,12 +82,13 @@
                     </Button>
                     <Button Name="ViewFileButton"
                             Width="30"
-                            Margin="1">
+                            Margin="1"
+                            Click="ViewFileButton_OnClick">
                         <StackPanel>
                             <Image Source="Icons/file.png" />
                         </StackPanel>
                         <Button.ToolTip>
-                            <TextBlock FontSize="16" Text="В архив" />
+                            <TextBlock FontSize="16" Text="Личное дело" />
                         </Button.ToolTip>
                     </Button>
                     <Button Name="DeleteStudentButton"

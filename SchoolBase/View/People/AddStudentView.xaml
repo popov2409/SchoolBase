@@ -6,7 +6,7 @@
         mc:Ignorable="d"
        Title=""
         Width="800"
-        Height="570"
+        Height="590"
         Icon="/Icons/Student.png"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -60,7 +60,14 @@
                          Margin="5,0,10,0"
                          VerticalContentAlignment="Center"
                          FontSize="14" />
+                <Button Name="FileButton" Content="Файл" Width="60" FontSize="14" FontWeight="Bold" Click="FileButton_OnClick"/>
+                <TextBlock Name="FileNameTextBLock" Margin="10,0,0,0" FontSize="16" HorizontalAlignment="Center" />
                 
+                
+            </StackPanel>
+            <StackPanel Margin="5,5,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
                 <CheckBox Name="InvalidityCheckBox"
                           Content="Инвалидность"
                           FlowDirection="RightToLeft"
@@ -85,7 +92,7 @@
                           VerticalAlignment="Center"
                           SnapsToDevicePixels="True" />
             </StackPanel>
-            <Grid Margin="5,5,0,0">
+                <Grid Margin="5,5,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>

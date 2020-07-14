@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using SchoolBase.Model;
 
 namespace SchoolBase.View.Student
@@ -77,6 +78,8 @@ namespace SchoolBase.View.Student
             if (fLang != null) SecondLanguageComboBox.SelectedItem = fLang;
             //Класс и группа
             ClassComboBox.SelectedItem = DbProxy.SchoolDb.SchoolClasses.FirstOrDefault(c => c.Id == l_student.ClassId);
+            //Файл
+            FileNameTextBLock.Text = l_student.File;
             //GroupComboBox.SelectedItem = DbProxy.SchoolDb.GroupSchoolClasses.FirstOrDefault(c => c.Id == l_student.GroupId);
             InitializeGroupsListBox();
 
@@ -195,6 +198,8 @@ namespace SchoolBase.View.Student
             l_student.DismissalDate = DismissalDate.SelectedDate != null
                 ? DismissalDate.SelectedDate.Value.ToShortDateString()
                 : "";
+            //Путь к личному делу
+            l_student.File = FileNameTextBLock.Text;
             //Другие данные
             l_student.OtherText = OtherTextBox.Text;
 
@@ -229,6 +234,16 @@ namespace SchoolBase.View.Student
         {
             student.GroupId.Remove(((GroupSchoolClass) GroupsListBox.SelectedItem).Id);
             InitializeGroupsListBox();
+        }
+
+        private void FileButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = System.IO.Directory.GetCurrentDirectory()+"\\files";
+            if (ofd.ShowDialog() == true)
+            {
+                FileNameTextBLock.Text = ofd.SafeFileName;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.IO;
 
 namespace SchoolBase.Model
 {
@@ -14,6 +15,7 @@ namespace SchoolBase.Model
         /// </summary>
         public static SchoolDb SchoolDb;
 
+        static DirectoryInfo dir = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\files");
 
         public static void LoadData()
         {
@@ -41,6 +43,36 @@ namespace SchoolBase.Model
             using (StreamWriter fs = new StreamWriter("data.xml",false,Encoding.Default))
             {
                 formatter.Serialize(fs,SchoolDb);
+            }
+            
+            CreateFileFolders();
+        }
+
+        /// <summary>
+        /// Создание структуры каталогов
+        /// </summary>
+        static void CreateFileFolders()
+        {
+            foreach (CategorySchoolClass categorySchoolClass in SchoolDb.CategorySchoolClasses)
+            {
+                List<string> categoryFolders = dir.GetDirectories().Select(c => c.Name).ToList();
+                string categoryDirName = $"{categorySchoolClass.Value}#{categorySchoolClass.Id}";
+
+                if (!categoryFolders.Contains(categoryDirName))
+                {
+                    dir.CreateSubdirectory(categoryDirName);
+                }
+                DirectoryInfo categoryDir = new DirectoryInfo(dir.FullName + "\\" + categoryDirName);
+                foreach (SchoolClass schoolClass in DbProxy.SchoolDb.SchoolClasses.Where(c=>c.Category==categorySchoolClass.Id))
+                {
+                    string classDirName = $"{schoolClass.FullValue}#{schoolClass.Id}";
+                    List<string> classFolders = categoryDir.GetDirectories().Select(c => c.Name).ToList();
+                    if (!classFolders.Contains(classDirName))
+                    {
+                        categoryDir.CreateSubdirectory(classDirName);
+                    }
+                }
+
             }
         }
     }

@@ -130,6 +130,11 @@ namespace SchoolBase.Model
         /// Условно переведен
         /// </summary>
         public bool ProbationTransferred { get; set; }
+        
+        /// <summary>
+        /// Путь к личному делу
+        /// </summary>
+        public string File { get; set; }
 
         /// <summary>
         /// Получить класс

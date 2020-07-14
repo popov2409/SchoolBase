@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -210,15 +211,22 @@ namespace SchoolBase
 
         private void DeleteStudentButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var student = MainGrid.SelectedItem as Student;
-            var resultMessage = MessageBox.Show("Вы действительно хотите удалить школьника? \n" +
-                                                student.FullName, "", MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-            if (resultMessage == MessageBoxResult.Yes)
+            if (MainGrid.SelectedItem != null)
             {
-                DbProxy.SchoolDb.Students.Remove(student);
-                InitializeMainGrid();
-                DbProxy.SaveData();
+                var student = MainGrid.SelectedItem as Student;
+                var resultMessage = MessageBox.Show("Вы действительно хотите удалить школьника? \n" +
+                                                    student.FullName, "", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (resultMessage == MessageBoxResult.Yes)
+                {
+                    DbProxy.SchoolDb.Students.Remove(student);
+                    InitializeMainGrid();
+                    DbProxy.SaveData();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите школьника!");
             }
         }
 
@@ -254,7 +262,7 @@ namespace SchoolBase
             }
             else
             {
-                MessageBox.Show("Не выбран ученик!");
+                MessageBox.Show("Выберите школьника!");
             }
         }
 
@@ -306,6 +314,34 @@ namespace SchoolBase
             InitializeTreeView();
             InitializeMainGrid();
             
+        }
+
+        private void ViewFileButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem != null)
+            {
+                Student st=MainGrid.SelectedItem as Student;
+                if (st.File==null||st.File.Length < 1)
+                {
+                    MessageBox.Show("Анкета не найдена!");
+                    return;
+                }
+
+                string filePath = System.IO.Directory.GetCurrentDirectory() + "\\files\\";
+                CategorySchoolClass ct = DbProxy.SchoolDb.CategorySchoolClasses.First(c => c.Id == st.CategoryId);
+                filePath += $"{ct.Value}#{ct.Id}\\";
+                SchoolClass sc = DbProxy.SchoolDb.SchoolClasses.First(c => c.Id == st.ClassId);
+                filePath += $"{sc.FullValue}#{sc.Id}\\";
+                filePath += st.File;
+                Process.Start(filePath);
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("Выберите школьника!");
+            }
         }
     }
 }
